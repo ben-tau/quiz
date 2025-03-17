@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Tableau de Bord BrainBattle - Optimisé pour Coordination</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.5;
+            margin: 20px;
+            max-width: 1200px;
+            color: #333;
+        }
+        h1 {
+            color: #1E3A8A;
+        }
+        h2 {
+            color: #3B82F6;
+            margin-top: 30px;
+            border-bottom: 2px solid #3B82F6;
+            padding-bottom: 5px;
+        }
+        h3 {
+            color: #1E3A8A;
+            margin-top: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        .completed {
+            background-color: #d4edda;
+        }
+        .in-progress {
+            background-color: #fff3cd;
+        }
+        .blocked {
+            background-color: #f8d7da;
+        }
+        .next-action {
+            background-color: #e0f7fa;
+            border-left: 4px solid #00acc1;
+            font-weight: bold;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #1E3A8A;
+        }
+        .note {
+            background-color: #e7f3ff;
+            padding: 10px;
+            border-left: 4px solid #3B82F6;
+            margin-bottom: 20px;
+        }
+        .dependency {
+            background-color: #fff0f0;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-size: 0.85em;
+            color: #e53935;
+        }
+        .sprint-header {
+            background-color: #1E3A8A;
+            color: white;
+            padding: 5px 10px;
+        }
+        .parallel-task {
+            border-left: 4px solid #9c27b0;
+        }
+        .agent-based {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .agent-card {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            width: calc(50% - 20px);
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .agent-card h4 {
+            margin-top: 0;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+        progress {
+            width: 100%;
+            height: 20px;
+        }
+        .new-agent {
+            border-left: 4px solid #EC4899;
+            background-color: #FCE7F3;
+        }
+    </style>
+</head>
+<body>
+    <!-- DÉBUT DE L'ENCART DE TRANSITION - AGENT RESPONSABLE:INTERDICTION DE SUPPRIMER !!! -->
+<div class="transition-encart">
+    <h2>ENCART DE TRANSITION - TABLEAU DE BORD BRAINBATTLE</h2>
+    <p><strong>AGENT RESPONSABLE:</strong> Coordinateur #6 - <em>Dernière mise à jour: 17 mars 2025</em></p>
+    
+    <h3>État Actuel & Contexte</h3>
+    <ul>
+        <li><strong>Avancement global:</strong> 85% - Sprint 1 achevé et Sprint 2 bien avancé</li>
+        <li><strong>Réorganisation des agents:</strong>
+            <ul>
+                <li>⚠️ Introduction de deux nouveaux agents: DocManager et TestAgent</li>
+                <li>⚠️ Redéfinition des rôles pour optimiser les flux de travail</li>
+                <li>⚠️ Mise en place de standards de documentation optimisés pour agents AI</li>
+            </ul>
+        </li>
+        <li><strong>Dernières actions réalisées:</strong>
+            <ul>
+                <li>✅ Finalisation de l'architecture technique par l'agent Architecte Tech</li>
+                <li>✅ Mise à jour de la définition projet par l'agent Chef de Projet</li>
+                <li>✅ Structure Atomic Design entièrement déployée</li>
+                <li>✅ Composants atomiques, moléculaires et organismiques tous implémentés</li>
+                <li>✅ Pages principales développées (HomePage, AuthenticatedHomePage, LoginPage, RegisterPage, CreateGamePage)</li>
+                <li>✅ Système d'authentification factice opérationnel</li>
+                <li>✅ Décision prise de n'utiliser que le thème sombre (abandon du mode clair)</li>
+                <li>🚀 En cours : TaskSlicer travaille sur les composants de jeu et interactions</li>
+            </ul>
+        </li>
+    </ul>
+    
+    <h3>Dépendances & Relations</h3>
+    <ul>
+        <li><strong>Ce document influence:</strong> Tous les autres documents du projet</li>
+        <li><strong>Ce document dépend de:</strong> Rapports d'avancement de tous les agents</li>
+        <li><strong>Agents concernés:</strong> Architecte Tech, TaskSlicer, Développeur Frontend, UX/UI Designer, Chef de Projet, DocManager, TestAgent</li>
+    </ul>
+    
+    <h3>Attentes pour cet Agent</h3>
+    <ol>
+        <li>Maintenir une vue d'ensemble cohérente du projet et coordonner les agents</li>
+        <li>Identifier et résoudre les dépendances critiques entre les agents</li>
+        <li>Optimiser la séquence d'actions pour minimiser les allers-retours</li>
+        <li>Mettre à jour régulièrement ce tableau de bord avec les progrès réalisés</li>
+        <li>Prioriser les prochaines actions en fonction des dépendances</li>
+        <li>IMPORTANT: Conserver systématiquement cet encart de transition</li>
+    </ol>
+    
+    <h3>Prochaines Étapes Identifiées</h3>
+    <ol>
+        <li>Créer fichier de documentation référence pour le Développeur Frontend</li>
+        <li>Initialiser le rôle DocManager et standardiser la documentation</li>
+        <li>Préparer le rôle TestAgent pour les tests des composants de jeu</li>
+        <li>Implémenter les composants de jeu essentiels (QuestionDisplay, AnswerInput, etc.)</li>
+        <li>Coordonner transition vers nouvelle structure d'agents sans perturber le développement</li>
+    </ol>
+    
+    <h3>Notes spécifiques pour la transition</h3>
+    <ul>
+        <li><strong>IMPORTANT: Cet encart de transition ne doit JAMAIS être supprimé</strong> - Il est crucial pour le passage de contexte entre agents</li>
+        <li><strong>NOUVELLE STRUCTURE D'AGENTS</strong> - Transition graduelle vers une structure optimisée qui facilite le passage de contexte</li>
+        <li><strong>DOCUMENTATION STANDARDISÉE</strong> - Format optimisé pour les agents AI avec système de référencement</li>
+        <li><strong>FLUX DE TRAVAIL OPTIMISÉ</strong> - TaskSlicer → Développeur → TestAgent → DocManager</li>
+    </ul>
+    
+    <div class="transition-separator"></div>
+    <p><em>Le contenu ci-dessous représente le tableau de bord actuel à maintenir et mettre à jour.</em></p>
+</div>
+<!-- FIN DE L'ENCART DE TRANSITION - AGENT RESPONSABLE:INTERDICTION DE SUPPRIMER !!! -->
+
+    <h1>Tableau de Bord BrainBattle - Optimisé pour Coordination</h1>
+    
+    <div class="note">
+        <strong>Guide d'utilisation:</strong> Ce tableau de bord est optimisé pour la coordination avec des agents IA. 
+        <ul>
+            <li>Les tâches sont organisées en <strong>séquences logiques</strong> qui minimisent les allers-retours</li>
+            <li>Les <strong>dépendances</strong> sont clairement identifiées pour éviter les blocages</li>
+            <li>Les <strong>actions parallèles</strong> sont indiquées pour optimiser votre temps</li>
+            <li>Pour chaque agent, vous avez les <strong>prochaines actions</strong> à effectuer</li>
+        </ul>
+    </div>
+
+    <h2>1. Vue d'ensemble de la progression</h2>
+    <table>
+        <tr>
+            <th>Sprint</th>
+            <th>Objectif principal</th>
+            <th>Progression</th>
+            <th>État</th>
+            <th>Prochaine action clé</th>
+        </tr>
+        <tr class="completed">
+            <td>Sprint 1</td>
+            <td>Wireframes & Structure UI</td>
+            <td><progress value="100" max="100"></progress> 100%</td>
+            <td>Terminé</td>
+            <td>-</td>
+        </tr>
+        <tr class="in-progress">
+            <td>Sprint 2</td>
+            <td>Implémentation UI & Jeu</td>
+            <td><progress value="70" max="100"></progress> 70%</td>
+            <td>En cours</td>
+            <td>Développer les composants de jeu</td>
+        </tr>
+        <tr>
+            <td>Sprint 3</td>
+            <td>Authentification & Backend</td>
+            <td><progress value="0" max="100"></progress> 0%</td>
+            <td>À venir</td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>Sprint 4</td>
+            <td>Temps réel & Gestion parties</td>
+            <td><progress value="0" max="100"></progress> 0%</td>
+            <td>À venir</td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>Sprint 5</td>
+            <td>Tests & Déploiement</td>
+            <td><progress value="0" max="100"></progress> 0%</td>
+            <td>À venir</td>
+            <td>-</td>
+        </tr>
+    </table>
+
+    <h2>2. Prochaines actions par agent</h2>
+    
+    <div class="agent-based">
+        <div class="agent-card">
+            <h4>Agent Architecte Tech</h4>
+            <p><strong>Action terminée:</strong> Architecture technique finalisée</p>
+            <div class="next-action">
+                <p><strong>Action immédiate:</strong> Clarifier la priorité de la préparation à l'API réelle</p>
+                <p><strong>À produire:</strong> Décision formelle sur la priorité de l'intégration API vs fonctionnalités de jeu</p>
+            </div>
+        </div>
+        
+        <div class="agent-card">
+            <h4>Agent TaskSlicer</h4>
+            <div class="next-action">
+                <p><strong>Action immédiate:</strong> Optimiser format des tâches avec références de fichiers explicites</p>
+                <p><strong>Action en cours:</strong> Découpage en lots des tâches pour les composants de jeu</p>
+                <p><strong>À produire:</strong> Lots de 10 tâches structurées pour le développement itératif</p>
+            </div>
+        </div>
+        
+        <div class="agent-card">
+            <h4>Agent Développeur Frontend</h4>
+            <div class="next-action">
+                <p><strong>Action immédiate:</strong> Créer fichier de documentation de référence dans project-definition-files</p>
+                <p><strong>Action en cours:</strong> Implémentation des composants de jeu (TS-35)</p>
+                <p><strong>À produire:</strong> Composants de jeu essentiels et documentation technique</p>
+            </div>
+        </div>
+        
+        <div class="agent-card">
+            <h4>Agent UX/UI Designer</h4>
+            <p><strong>Actions terminées pour Sprint 1 et 2</strong></p>
+            <p><strong>Action potentielle:</strong> Support au développeur frontend si nécessaire pour les interfaces de jeu</p>
+        </div>
+        
+        <div class="agent-card">
+            <h4>Agent Chef de Projet</h4>
+            <p><strong>Action terminée:</strong> Mise à jour du document "definition projet"</p>
+            <div class="next-action">
+                <p><strong>Action immédiate:</strong> Définir la stratégie concernant la priorité de l'API réelle</p>
+                <p><strong>À produire:</strong> Document de décision sur les priorités du Sprint 2</p>
+            </div>
+        </div>
+        
+        <div class="agent-card new-agent">
+            <h4>Agent DocManager (Nouveau)</h4>
+            <div class="next-action">
+                <p><strong>Action immédiate:</strong> Convertir documentation existante au format optimisé pour agents AI</p>
+                <p><strong>À produire:</strong> Fichiers DOC_X standardisés et système de référencement</p>
+            </div>
+            <p><strong>Responsabilité:</strong> Centralisation et standardisation de la documentation technique</p>
+        </div>
+        
+        <div class="agent-card new-agent">
+            <h4>Agent TestAgent (Nouveau)</h4>
+            <div class="next-action">
+                <p><strong>Action immédiate:</strong> Développer scénarios de test pour composants de jeu</p>
+                <p><strong>À produire:</strong> Framework de simulation et bots pour tests multi-joueurs</p>
+            </div>
+            <p><strong>Responsabilité:</strong> Tests manuels, simulation multi-utilisateurs, détection de régressions</p>
+        </div>
+    </div>
+
+    <h2>3. Restructuration du flux de travail</h2>
+    <table>
+        <tr>
+            <th>Phase</th>
+            <th>Action</th>
+            <th>Agent</th>
+            <th>État</th>
+            <th>Priorité</th>
+        </tr>
+        <tr class="next-action">
+            <td>Phase 1</td>
+            <td>Créer fichier documentation de référence développeur</td>
+            <td>Développeur Frontend</td>
+            <td>À faire</td>
+            <td>Critique</td>
+        </tr>
+        <tr class="next-action">
+            <td>Phase 1</td>
+            <td>Optimiser format des tâches TaskSlicer</td>
+            <td>TaskSlicer</td>
+            <td>À faire</td>
+            <td>Haute</td>
+        </tr>
+        <tr class="next-action">
+            <td>Phase 1</td>
+            <td>Continuer développement composants de jeu</td>
+            <td>Développeur Frontend</td>
+            <td>En cours</td>
+            <td>Haute</td>
+        </tr>
+        <tr>
+            <td>Phase 2</td>
+            <td>Introduire agent DocManager</td>
+            <td>DocManager</td>
+            <td>À faire</td>
+            <td>Moyenne</td>
+        </tr>
+        <tr>
+            <td>Phase 2</td>
+            <td>Introduire agent TestAgent</td>
+            <td>TestAgent</td>
+            <td>À faire</td>
+            <td>Moyenne</td>
+        </tr>
+        <tr>
+            <td>Phase 2</td>
+            <td>Mettre à jour tableau de bord coordinateur</td>
+            <td>Coordinateur</td>
+            <td>En cours</td>
+            <td>Moyenne</td>
+        </tr>
+        <tr>
+            <td>Phase 3</td>
+            <td>Tester cycle complet avec tous les agents</td>
+            <td>Tous</td>
+            <td>À faire</td>
+            <td>Basse</td>
+        </tr>
+        <tr>
+            <td>Phase 3</td>
+            <td>Finaliser règles communes</td>
+            <td>Coordinateur</td>
+            <td>À faire</td>
+            <td>Basse</td>
+        </tr>
+        <tr>
+            <td>Phase 3</td>
+            <td>Évaluer améliorations et ajuster</td>
+            <td>Coordinateur</td>
+            <td>À faire</td>
+            <td>Basse</td>
+        </tr>
+    </table>
+
+    <h2>4. Nouveau cycle de développement</h2>
+    <div class="note">
+        <strong>Flux de travail optimisé:</strong>
+        <ol>
+            <li><strong>TaskSlicer</strong> découpe tâches avec références précises aux fichiers et à la documentation</li>
+            <li><strong>Développeur</strong> implémente fonctionnalités et met à jour documentation technique</li>
+            <li><strong>TestAgent</strong> vérifie implémentation avec tests manuels et simulation</li>
+            <li><strong>DocManager</strong> standardise et centralise documentation technique</li>
+            <li><strong>TaskSlicer</strong> marque tâche complète et prépare prochaines tâches</li>
+        </ol>
+    </div>
+
+    <h2>5. Gestion des Dépendances Documentaires</h2>
+    <table>
+        <tr>
+            <th>Document principal</th>
+            <th>Mise à jour nécessaire</th>
+            <th>Agent responsable</th>
+            <th>Priorité</th>
+        </tr>
+        <tr class="next-action">
+            <td>Documentation de référence développeur</td>
+            <td>À créer</td>
+            <td>Développeur Frontend</td>
+            <td>Critique</td>
+        </tr>
+        <tr class="next-action">
+            <td>Fichiers DOC_X standardisés</td>
+            <td>À créer</td>
+            <td>DocManager</td>
+            <td>Haute</td>
+        </tr>
+        <tr class="next-action">
+            <td>Règles communes entre agents</td>
+            <td>À finaliser</td>
+            <td>Coordinateur</td>
+            <td>Haute</td>
+        </tr>
+        <tr class="in-progress">
+            <td>Format des tâches TaskSlicer</td>
+            <td>À optimiser</td>
+            <td>TaskSlicer</td>
+            <td>Haute</td>
+        </tr>
+        <tr>
+            <td>Scénarios de test</td>
+            <td>À créer</td>
+            <td>TestAgent</td>
+            <td>Moyenne</td>
+        </tr>
+        <tr>
+            <td>Décision sur priorité API</td>
+            <td>À créer</td>
+            <td>Chef de Projet</td>
+            <td>Haute</td>
+        </tr>
+    </table>
+
+    <h2>6. Points de vigilance et opportunités</h2>
+    <ul>
+        <li class="highlight">
+            <strong>Transition en douceur:</strong> Introduire les changements sans perturber le développement
+            <ul>
+                <li>Maintenir focus sur implémentation des composants de jeu</li>
+                <li>Intégrer progressivement les nouveaux agents</li>
+                <li>Utiliser formats optimisés pour nouvelles tâches uniquement</li>
+            </ul>
+        </li>
+        <li class="highlight">
+            <strong>Documentation référence développeur:</strong> Point critique pour améliorer transition entre agents développeurs
+            <ul>
+                <li>Format standardisé avec encart de transition</li>
+                <li>Inclure règles, contexte, décisions techniques</li>
+                <li>Limiter à 200 lignes maximum</li>
+            </ul>
+        </li>
+        <li>
+            <strong>Méthode de travail itérative:</strong> Maintenir approche par lots de tâches
+            <ul>
+                <li>Adapter format des tâches pour inclure références précises</li>
+                <li>Inclure tests attendus pour chaque tâche</li>
+                <li>Continuer feedback continu entre TaskSlicer et Développeur</li>
+            </ul>
+        </li>
+        <li>
+            <strong>Tests et validation:</strong> Améliorer cycle de feedback
+            <ul>
+                <li>Développer scénarios de test pour composants de jeu</li>
+                <li>Simuler comportement multi-joueurs</li>
+                <li>Documenter précisément les problèmes identifiés</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h2>7. Budget et ressources</h2>
+    <table>
+        <tr>
+            <th>Ressource</th>
+            <th>Consommé</th>
+            <th>Disponible</th>
+            <th>Allocation prioritaire</th>
+        </tr>
+        <tr>
+            <td>Budget total</td>
+            <td>40€ / 100€</td>
+            <td>60€</td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>Claude</td>
+            <td>20€ (prix fixe - ne pas modifier)</td>
+            <td>-</td>
+            <td>Génération des composants de jeu, revue de code</td>
+        </tr>
+        <tr>
+            <td>Cursor avec IA</td>
+            <td>20€ (prix fixe - ne pas modifier)</td>
+            <td>-</td>
+            <td>Développement des fonctionnalités interactives, debugging</td>
+        </tr>
+    </table>
+
+    <h2>8. Notes et Observations</h2>
+    <ul>
+        <li>La restructuration proposée vise à résoudre les problèmes de transmission d'information entre agents</li>
+        <li>Le nouveau système introduit deux agents spécialisés: DocManager et TestAgent</li>
+        <li>Les formats standardisés de documentation sont optimisés pour les agents AI</li>
+        <li>La mise en place se fera progressivement pour ne pas perturber le développement actuel</li>
+        <li>L'objectif principal est d'améliorer la continuité entre agents développeurs successifs</li>
+        <li>La question de la priorité API vs fonctionnalités de jeu reste à clarifier avec le Chef de Projet</li>
+        <li>Le système vise à réduire les questions répétitives et les malentendus entre agents</li>
+    </ul>
+</body>
+</html>

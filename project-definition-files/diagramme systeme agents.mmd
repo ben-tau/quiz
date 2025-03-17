@@ -1,0 +1,32 @@
+flowchart TD
+    classDef management fill:#1E3A8A,stroke:#3B82F6,color:white
+    classDef development fill:#3B82F6,stroke:#60A5FA,color:white
+    classDef design fill:#EC4899,stroke:#F472B6,color:white
+    classDef documentation fill:#10B981,stroke:#34D399,color:white
+    classDef active stroke-width:4px
+    
+    Coord[Coordinateur] --> ChefP[Chef de Projet]
+    Coord --> ArchT[Architecte Tech]
+    Coord --> TSlice[TaskSlicer]
+    Coord --> UXD[UX/UI Designer]
+    Coord --> DocM[DocManager]
+    
+    TSlice --> DevF[Développeur Frontend]
+    TSlice --> TestA[Test Agent]
+    
+    DevF --> DocM
+    TestA --> DocM
+    
+    ArchT --> DocM
+    UXD --> DocM
+    ChefP --> DocM
+    
+    TSlice -.-> MR{Synchronisation}
+    DocM -.-> MR
+    DevF -.-> MR
+    
+    class Coord,ChefP management
+    class TSlice,DevF,TestA development
+    class UXD design
+    class DocM documentation
+    class DocM,TSlice,DevF active

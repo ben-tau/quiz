@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrainBattle - Soumettre une Question</title>
+    <style>
+        :root {
+            /* Palette principale */
+            --primary-color: #1E3A8A; /* Bleu profond */
+            --secondary-color: #3B82F6; /* Bleu électrique */
+            --accent-color: #FACC15; /* Jaune vif */
+            --accent-color-2: #EC4899; /* Rose */
+            --dark-bg: #0F172A; /* Fond bleu très foncé */
+            --text-light: #F1F5F9; /* Texte clair */
+            --black: #000000;
+            --white: #FFFFFF;
+            
+            /* Autres variables */
+            --border-radius: 8px;
+            --box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--black) 100%);
+            color: var(--text-light);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--white);
+            text-shadow: 0 0 10px rgba(59, 130, 246, 0.6);
+        }
+        
+        .logo-icon {
+            background: var(--secondary-color);
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.7);
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+        }
+        
+        .username {
+            font-weight: 600;
+        }
+        
+        .back-button {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            padding: 10px 20px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            width: fit-content;
+            margin-bottom: 30px;
+        }
+        
+        .back-button:hover {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .back-icon {
+            font-size: 18px;
+        }
+        
+        .page-title {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 30px;
+            color: var(--white);
+            text-align: center;
+            text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+        }
+        
+        .form-container {
+            background: rgba(15, 23, 42, 0.7);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 30px;
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+        }
+        
+        .form-section-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .form-section-icon {
+            background: var(--secondary-color);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+        
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: var(--border-radius);
+            color: var(--white);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+        
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+        }
+        
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .question-type-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .type-option {
+            flex: 1;
+            min-width: 150px;
+            background: rgba(15, 23, 42, 0.5);
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .type-option:hover {
+            border-color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+        
+        .type-option.active {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: var(--secondary-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .type-icon {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .type-name {
+            font-weight: 600;
+        }
+        
+        .media-upload {
+            border: 2px dashed rgba(59, 130, 246, 0.3);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .media-upload:hover {
+            border-color: var(--secondary-color);
+            background: rgba(59, 130, 246, 0.1);
+        }
+        
+        .upload-icon {
+            font-size: 36px;
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+        }
+        
+        .upload-text {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .upload-subtext {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .difficulty-selector {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 5px;
+            margin-top: 10px;
+        }
+        
+        .difficulty-dot {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .difficulty-dot:hover {
+            border-color: var(--secondary-color);
+            transform: scale(1.1);
+        }
+        
+        .difficulty-dot.active {
+            background: var(--secondary-color);
+            color: var(--white);
+            border-color: var(--white);
+        }
+        
+        .difficulty-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+        }
+        
+        .difficulty-label {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+            text-align: center;
+            width: 60px;
+        }
+        
+        .difficulty-label:first-child {
+            text-align: left;
+            margin-left: 10px;
+        }
+        
+        .difficulty-label:last-child {
+            text-align: right;
+            margin-right: 10px;
+        }
+        
+        .time-slider-container {
+            margin-top: 15px;
+        }
+        
+        .time-slider {
+            width: 100%;
+            -webkit-appearance: none;
+            height: 8px;
+            border-radius: 4px;
+            background: rgba(59, 130, 246, 0.2);
+            outline: none;
+        }
+        
+        .time-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--secondary-color);
+            cursor: pointer;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+        
+        .time-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+        }
+        
+        .qcm-options {
+            margin-top: 20px;
+        }
+        
+        .qcm-option {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+        
+        .option-correct {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            border: 2px solid rgba(59, 130, 246, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+        
+        .option-correct.active {
+            background: var(--secondary-color);
+            border-color: var(--white);
+        }
+        
+        .option-correct.active::after {
+            content: '✓';
+            color: var(--white);
+            font-weight: bold;
+        }
+        
+        .option-input {
+            flex: 1;
+        }
+        
+        .add-option-btn {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px dashed rgba(59, 130, 246, 0.5);
+            color: var(--secondary-color);
+            padding: 10px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .add-option-btn:hover {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: var(--secondary-color);
+        }
+        
+        .preview-container {
+            background: rgba(15, 23, 42, 0.7);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 30px;
+        }
+        
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .preview-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .preview-icon {
+            color: var(--accent-color);
+            font-size: 24px;
+        }
+        
+        .preview-theme-badge {
+            background-color: rgba(30, 58, 138, 0.5);
+            color: var(--text-light);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-block;
+        }
+        
+        .preview-content {
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            min-height: 200px;
+        }
+        
+        .preview-question-text {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .preview-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .preview-option {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            padding: 15px;
+            border-radius: var(--border-radius);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .preview-option:hover {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        
+        .preview-difficulty {
+            display: flex;
+            gap: 5px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .preview-difficulty-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .preview-difficulty-dot.active {
+            background: var(--accent-color-2);
+        }
+        
+        .preview-timer {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .preview-timer-icon {
+            color: var(--accent-color);
+        }
+        
+        .preview-timer-text {
+            font-weight: 700;
+            color: var(--white);
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .button {
+            flex: 1;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            font-weight: 700;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            border: none;
+        }
+        
+        .button-outline {
+            background: transparent;
+            border: 2px solid var(--secondary-color);
+            color: var(--secondary-color);
+        }
+        
+        .button-outline:hover {
+            background: rgba(59, 130, 246, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .button-primary {
+            background: linear-gradient(90deg, var(--secondary-color) 0%, var(--accent-color-2) 100%);
+            color: var(--white);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+        }
+        
+        .button-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.5);
+        }
+        
+        .form-tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+        }
+        
+        .form-tab {
+            padding: 15px 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .form-tab.active {
+            color: var(--secondary-color);
+            border-bottom-color: var(--secondary-color);
+        }
+        
+        .form-tab:hover:not(.active) {
+            color: rgba(59, 130, 246, 0.7);
+            border-bottom-color: rgba(59, 130, 246, 0.2);
+        }
+        
+        /* Section spécifique pour les types de questions */
+        .question-type-content {
+            display: none;
+        }
+        
+        .question-type-content.active {
+            display: block;
+        }
+        
+        .drag-items-container {
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .drag-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            background: rgba(15, 23, 42, 0.5);
+            padding: 15px;
+            border-radius: var(--border-radius);
+        }
+        
+        .drag-handle {
+            cursor: move;
+            color: var(--secondary-color);
+            font-size: 20px;
+        }
+        
+        .timeline-settings {
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            margin-top: 20px;
+        }
+        
+        .timeline-range {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .timeline-range .form-group {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon">🧠</div>
+                BrainBattle
+            </div>
+            <div class="user-info">
+                <div class="avatar">T</div>
+                <div class="username">Thomas</div>
+            </div>
+        </header>
+        
+        <main>
+            <h1 class="page-title">Soumettre une question</h1>
+            
+            <a href="#" class="back-button">
+                <span class="back-icon">←</span>
+                Retour à l'accueil
+            </a>
+            
+            <div class="form-container">
+                <div class="form-section">
+                    <div class="form-section-title">
+                        <div class="form-section-icon">1</div>
+                        Type de question
+                    </div>
+                    
+                    <div class="question-type-selector">
+                        <div class="type-option active">
+                            <div class="type-icon">🔤</div>
+                            <div class="type-name">QCM</div>
+                        </div>
+                        
+                        <div class="type-option">
+                            <div class="type-icon">📝</div>
+                            <div class="type-name">Texte</div>
+                        </div>
+                        
+                        <div class="type-option">
+                            <div class="type-icon">📅</div>
+                            <div class="type-name">Timeline</div>
+                        </div>
+                        
+                        <div class="type-option">
+                            <div class="type-icon">🔄</div>
+                            <div class="type-name">Drag-n-Drop</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <div class="form-section-title">
+                        <div class="form-section-icon">2</div>
+                        Informations principales
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Texte de la question</label>
+                        <textarea class="form-textarea" placeholder="Saisissez votre question..."></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Thème</label>
+                            <select class="form-select">
+                                <option value="">Sélectionnez un thème</option>
+                                <option value="histoire">Histoire</option>
+                                <option value="geographie">Géographie</option>
+                                <option value="cinema">Cinéma</option>
+                                <option value="science">Sciences</option>
+                                <option value="litterature">Littérature</option>
+                                <option value="autre">Autre</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Média (optionnel)</label>
+                            <div class="media-upload">
+                                <div class="upload-icon">📤</div>
+                                <div class="upload-text">Glissez une image ou un fichier audio</div>
+                                <div class="upload-subtext">JPEG, PNG ou MP3 • Max 5 Mo</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contenu spécifique au QCM -->
+                <div class="question-type-content active" id="qcm-content">
+                    <div class="form-section">
+                        <div class="form-section-title">
+                            <div class="form-section-icon">3</div>
+                            Options du QCM
+                        </div>
+                        
+                        <div class="qcm-options">
+                            <div class="qcm-option">
+                                <div class="option-correct active"></div>
+                                <input type="text" class="form-input option-input" placeholder="Option 1 (réponse correcte)">
+                            </div>
+                            
+                            <div class="qcm-option">
+                                <div class="option-correct"></div>
+                                <input type="text" class="form-input option-input" placeholder="Option 2">
+                            </div>
+                            
+                            <div class="qcm-option">
+                                <div class="option-correct"></div>
+                                <input type="text" class="form-input option-input" placeholder="Option 3">
+                            </div>
+                            
+                            <div class="qcm-option">
+                                <div class="option-correct"></div>
+                                <input type="text" class="form-input option-input" placeholder="Option 4">
+                            </div>
+                            
+                            <div class="add-option-btn">
+                                <span>+</span> Ajouter une option
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contenu spécifique au Texte (masqué par défaut) -->
+                <div class="question-type-content" id="texte-content" style="display: none;">
+                    <div class="form-section">
+                        <div class="form-section-title">
+                            <div class="form-section-icon">3</div>
+                            Réponse textuelle
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Réponse correcte</label>
+                            <input type="text" class="form-input" placeholder="Saisissez la réponse correcte">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Réponses alternatives acceptées (une par ligne)</label>
+                            <textarea class="form-textarea" placeholder="Saisissez d'autres réponses acceptées..."></textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contenu spécifique à la Timeline (masqué par défaut) -->
+                <div class="question-type-content" id="timeline-content" style="display: none;">
+                    <div class="form-section">
+                        <div class="form-section-title">
+                            <div class="form-section-icon">3</div>
+                            Paramètres de la timeline
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Date ou année correcte</label>
+                            <input type="text" class="form-input" placeholder="Ex: 1789">
+                        </div>
+                        
+                        <div class="timeline-settings">
+                            <label class="form-label">Plage de la timeline</label>
+                            <div class="timeline-range">
+                                <div class="form-group">
+                                    <label class="form-label">Début</label>
+                                    <input type="text" class="form-input" placeholder="Ex: 1700">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Fin</label>
+                                    <input type="text" class="form-input" placeholder="Ex: 1900">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Marge d'erreur acceptée (en années)</label>
+                                <input type="number" class="form-input" placeholder="Ex: 5" value="5">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contenu spécifique au Drag-n-Drop (masqué par défaut) -->
+                <div class="question-type-content" id="drag-content" style="display: none;">
+                    <div class="form-section">
+                        <div class="form-section-title">
+                            <div class="form-section-icon">3</div>
+                            Éléments du Drag-n-Drop
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Instructions</label>
+                            <input type="text" class="form-input" placeholder="Ex: Classez ces événements par ordre chronologique">
+                        </div>
+                        
+                        <label class="form-label">Éléments à ordonner (dans l'ordre correct)</label>
+                        <div class="drag-items-container">
+                            <div class="drag-item">
+                                <div class="drag-handle">≡</div>
+                                <input type="text" class="form-input" placeholder="Élément 1">
+                            </div>
+                            
+                            <div class="drag-item">
+                                <div class="drag-handle">≡</div>
+                                <input type="text" class="form-input" placeholder="Élément 2">
+                            </div>
+                            
+                            <div class="drag-item">
+                                <div class="drag-handle">≡</div>
+                                <input type="text" class="form-input" placeholder="Élément 3">
+                            </div>
+                            
+                            <div class="add-option-btn">
+                                <span>+</span> Ajouter un élément
+                            </div

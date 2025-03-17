@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrainBattle - Interface Admin</title>
+    <style>
+        :root {
+            /* Palette principale */
+            --primary-color: #1E3A8A; /* Bleu profond */
+            --secondary-color: #3B82F6; /* Bleu électrique */
+            --accent-color: #FACC15; /* Jaune vif */
+            --accent-color-2: #EC4899; /* Rose */
+            --dark-bg: #0F172A; /* Fond bleu très foncé */
+            --darker-bg: #080C17; /* Fond encore plus foncé */
+            --text-light: #F1F5F9; /* Texte clair */
+            --black: #000000;
+            --white: #FFFFFF;
+            --success-color: #10B981; /* Vert pour validation */
+            --error-color: #EF4444; /* Rouge pour refus */
+            --admin-color: #22C55E; /* Vert admin */
+            
+            /* Autres variables */
+            --border-radius: 8px;
+            --box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--darker-bg);
+            color: var(--text-light);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--white);
+            text-shadow: 0 0 10px rgba(59, 130, 246, 0.6);
+        }
+        
+        .logo-icon {
+            background: var(--secondary-color);
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.7);
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--admin-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+        }
+        
+        .username {
+            font-weight: 600;
+        }
+        
+        .badge {
+            background-color: var(--admin-color);
+            color: var(--white);
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+        
+        .page-title {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 30px;
+            color: var(--white);
+            text-align: center;
+            text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+        }
+        
+        .back-button {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            padding: 10px 20px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            width: fit-content;
+            margin-bottom: 30px;
+        }
+        
+        .back-button:hover {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .back-icon {
+            font-size: 18px;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+        }
+        
+        .nav-tab {
+            padding: 15px 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-light);
+            text-decoration: none;
+        }
+        
+        .nav-tab.active {
+            color: var(--admin-color);
+            border-bottom-color: var(--admin-color);
+        }
+        
+        .nav-tab-icon {
+            font-size: 20px;
+        }
+        
+        .tab-content {
+            min-height: 400px;
+        }
+        
+        /* Styles pour les cartes de thème */
+        .themes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .theme-card {
+            background: rgba(15, 23, 42, 0.7);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            box-shadow: var(--box-shadow);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .theme-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .theme-icon {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            margin-right: 15px;
+        }
+        
+        .theme-info {
+            flex: 1;
+        }
+        
+        .theme-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 5px;
+        }
+        
+        .theme-count {
+            font-size: 24px;
+            font-weight: 700;
+            margin-top: 5px;
+        }
+        
+        .theme-label {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .theme-actions {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .theme-action {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .theme-action:hover {
+            transform: translateY(-2px);
+        }
+        
+        .action-edit:hover {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: var(--secondary-color);
+        }
+        
+        .action-delete:hover {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: var(--error-color);
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--success-color);
+        }
+        
+        .theme-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        
+        .minimum-info {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .status-badges {
+            display: flex;
+            gap: 8px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .badge-status {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .badge-active {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success-color);
+            border: 1px solid var(--success-color);
+        }
+        
+        .badge-inactive {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--error-color);
+            border: 1px solid var(--error-color);
+        }
+        
+        .badge-warning {
+            background: rgba(250, 204, 21, 0.2);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+        }
+        
+        .new-theme-card {
+            background: rgba(15, 23, 42, 0.4);
+            border: 2px dashed rgba(34, 197, 94, 0.3);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            height: 240px;
+        }
+        
+        .new-theme-card:hover {
+            background: rgba(34, 197, 94, 0.1);
+            border-color: var(--admin-color);
+            transform: translateY(-5px);
+        }
+        
+        .add-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(34, 197, 94, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            margin-bottom: 15px;
+            color: var(--admin-color);
+        }
+        
+        .add-text {
+            color: var(--admin-color);
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        /* Styles pour la gestion des utilisateurs */
+        .users-management {
+            background: rgba(15, 23, 42, 0.7);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .search-filters {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .search-bar {
+            position: relative;
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 12px 12px 12px 40px;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: var(--border-radius);
+            color: var(--white);
+            font-size: 14px;
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .role-filter {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .filter-label {
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        
+        .filter-select {
+            padding: 12px;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: var(--border-radius);
+            color: var(--white);
+            font-size: 14px;
+            min-width: 150px;
+        }
+        
+        .users-list {
+            margin-top: 20px;
+        }
+        
+        .user-item {
+            display: flex;
+            align-items: center;
+            background: rgba(15, 23, 42, 0.5);
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .user-item:hover {
+            background: rgba(15, 23, 42, 0.7);
+            transform: translateX(5px);
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .avatar-user {
+            background: var(--secondary-color);
+        }
+        
+        .avatar-validator {
+            background: var(--accent-color);
+        }
+        
+        .avatar-admin {
+            background: var(--admin-color);
+        }
+        
+        .user-details {
+            flex: 1;
+        }
+        
+        .user-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .user-email {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .user-stats {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            margin-right: 20px;
+            text-align: right;
+            min-width: 120px;
+        }
+        
+        .stat-value {
+            font-weight: 700;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .user-role-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+            flex-shrink: 0;
+        }
+        
+        .role-admin {
+            background: rgba(34, 197, 94, 0.2);
+            color: var(--admin-color);
+            border: 1px solid var(--admin-color);
+        }
+        
+        .role-validator {
+            background: rgba(250, 204, 21, 0.2);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+        }
+        
+        .role-user {
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--secondary-color);
+            border: 1px solid var(--secondary-color);
+        }
+        
+        .user-actions {
+            display: flex;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+        
+        .action-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+        
+        .action-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .edit-btn:hover {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: var(--secondary-color);
+        }
+        
+        .delete-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: var(--error-color);
+        }
+        
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 5px;
+        }
+        
+        .status-active {
+            background: var(--success-color);
+        }
+        
+        .status-inactive {
+            background: var(--error-color);
+        }
+        
+        .user-status {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon">🧠</div>
+                BrainBattle
+            </div>
+            <div class="user-info">
+                <div class="avatar">A</div>
+                <div class="username">Admin <span class="badge">Super Admin</span></div>
+            </div>
+        </header>
+        
+        <main>
+            <h1 class="page-title">Interface Administrateur</h1>
+            
+            <a href="#" class="back-button">
+                <span class="back-icon">←</span>
+                Retour à l'accueil
+            </a>
+            
+            <div class="nav-tabs">
+                <a href="#themes-tab" class="nav-tab">
+                    <span class="nav-tab-icon">📚</span>
+                    Gestion des thèmes
+                </a>
+                <a href="#users-tab" class="nav-tab active">
+                    <span class="nav-tab-icon">👥</span>
+                    Gestion des utilisateurs
+                </a>
+            </div>
+            
+            <div class="tab-content">
+                <!-- Contenu de l'onglet Gestion des thèmes (caché par défaut) -->
+                <div class="themes-grid" style="display: none;">
+                    <!-- Thème Histoire -->
+                    <div class="theme-card">
+                        <div class="theme-actions">
+                            <div class="theme-action action-delete">🗑️</div>
+                        </div>
+                        
+                        <div class="theme-header">
+                            <div class="theme-icon">🏛️</div>
+                            <div class="theme-info">
+                                <div class="theme-title">Histoire <span style="cursor: pointer; margin-left: 5px; font-size: 14px;">✏️</span></div>
+                                <div class="theme-count">208</div>
+                                <div class="theme-label">Questions</div>
+                            </div>
+                        </div>
+                        
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 100%;"></div>
+                        </div>
+                        
+                        <div class="theme-footer">
+                            <div class="minimum-info">Minimum 20 questions requis</div>
+                        </div>
+                        
+                        <div class="status-badges">
+                            <div class="badge-status badge-active" style="cursor: pointer;">Actif</div>
+                            <div class="badge-status badge-warning">Partie en cours</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Thème Sciences -->
+                    <div class="theme-card">
+                        <div class="theme-actions">
+                            <div class="theme-action action-delete">🗑️</div>
+                        </div>
+                        
+                        <div class="theme-header">
+                            <div class="theme-icon">🔬</div>
+                            <div class="theme-info">
+                                <div class="theme-title">Sciences <span style="cursor: pointer; margin-left: 5px; font-size: 14px;">✏️</span></div>
+                                <div class="theme-count">172</div>
+                                <div class="theme-label">Questions</div>
+                            </div>
+                        </div>
+                        
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 100%;"></div>
+                        </div>
+                        
+                        <div class="theme-footer">
+                            <div class="minimum-info">Minimum 20 questions requis</div>
+                        </div>
+                        
+                        <div class="status-badges">
+                            <div class="badge-status badge-active" style="cursor: pointer;">Actif</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Thème Cinéma -->
+                    <div class="theme-card">
+                        <div class="theme-actions">
+                            <div class="theme-action action-delete">🗑️</div>
+                        </div>
+                        
+                        <div class="theme-header">
+                            <div class="theme-icon">🎬</div>
+                            <div class="theme-info">
+                                <div class="theme-title">Cinéma <span style="cursor: pointer; margin-left: 5px; font-size: 14px;">✏️</span></div>
+                                <div class="theme-count">154</div>
+                                <div class="theme-label">Questions</div>
+                            </div>
+                        </div>
+                        
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 100%;"></div>
+                        </div>
+                        
+                        <div class="theme-footer">
+                            <div class="minimum-info">Minimum 20 questions requis</div>
+                        </div>
+                        
+                        <div class="status-badges">
+                            <div class="badge-status badge-inactive" style="cursor: pointer;">Inactif</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Ajouter un thème -->
+                    <div class="new-theme-card" style="height: 100%;">
+                        <div class="add-icon">+</div>
+                        <div class="add-text">Créer un nouveau thème</div>
+                    </div>
+                </div>
+                
+                <!-- Contenu de l'onglet Gestion des utilisateurs -->
+                <div class="users-management">
+                    <div class="search-filters">
+                        <div class="search-bar">
+                            <span class="search-icon">🔍</span>
+                            <input type="text" class="search-input" placeholder="Rechercher un utilisateur...">
+                        </div>
+                        
+                        <div class="role-filter">
+                            <span class="filter-label">Rôle:</span>
+                            <select class="filter-select">
+                                <option value="all">Tous</option>
+                                <option value="admin">Super Admin</option>
+                                <option value="validator">Validateur</option>
+                                <option value="user">Utilisateur</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="users-list">
+                        <!-- Utilisateur 1 -->
+                        <div class="user-item">
+                            <div class="user-avatar avatar-validator">T</div>
+                            <div class="user-details">
+                                <div class="user-name">Thomas</div>
+                                <div class="user-email">thomas@example.com</div>
+                                <div class="user-status">
+                                    <span class="status-indicator status-active"></span>
+                                    Actif
+                                </div>
+                            </div>
+                            <div class="user-stats">
+                                <div class="stat-value">15</div>
+                                <div class="stat-label">Questions soumises</div>
+                            </div>
+                            <div class="user-role-badge role-validator">Validateur</div>
+                            <div class="user-actions">
+                                <div class="action-btn edit-btn">✏️</div>
+                                <div class="action-btn delete-btn">🗑️</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Utilisateur 2 -->
+                        <div class="user-item">
+                            <div class="user-avatar avatar-user">S</div>
+                            <div class="user-details">
+                                <div class="user-name">Sophie</div>
+                                <div class="user-email">sophie@example.com</div>
+                                <div class="user-status">
+                                    <span class="status-indicator status-active"></span>
+                                    Actif
+                                </div>
+                            </div>
+                            <div class="user-stats">
+                                <div class="stat-value">23</div>
+                                <div class="stat-label">Questions soumises</div>
+                            </div>
+                            <div class="user-role-badge role-user">Utilisateur</div>
+                            <div class="user-actions">
+                                <div class="action-btn edit-btn">✏️</div>
+                                <div class="action-btn delete-btn">🗑️</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Utilisateur 3 -->
+                        <div class="user-item">
+                            <div class="user-avatar avatar-admin">M</div>
+                            <div class="user-details">
+                                <div class="user-name">Marie</div>
+                                <div class="user-email">marie@example.com</div>
+                                <div class="user-status">
+                                    <span class="status-indicator status-active"></span>
+                                    Actif
+                                </div>
+                            </div>
+                            <div class="user-stats">
+                                <div class="stat-value">45</div>
+                                <div class="stat-label">Questions soumises</div>
+                            </div>
+                            <div class="user-role-badge role-admin">Super Admin</div>
+                            <div class="user-actions">
+                                <div class="action-btn edit-btn">✏️</div>
+                                <div class="action-btn delete-btn">🗑️</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Utilisateur 4 -->
+                        <div class="user-item">
+                            <div class="user-avatar avatar-user">L</div>
+                            <div class="user-details">
+                                <div class="user-name">Lucas</div>
+                                <div class="user-email">lucas@example.com</div>
+                                <div class="user-status">
+                                    <span class="status-indicator status-inactive"></span>
+                                    Inactif
+                                </div>
+                            </div>
+                            <div class="user-stats">
+                                <div class="stat-value">8</div>
+                                <div class="stat-label">Questions soumises</div>
+                            </div>
+                            <div class="user-role-badge role-user">Utilisateur</div>
+                            <div class="user-actions">
+                                <div class="action-btn edit-btn">✏️</div>
+                                <div class="action-btn delete-btn">🗑️</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrainBattle - Question Drag-n-Drop</title>
+    <style>
+        body {
+            background-color: #080C17;
+            color: #F1F5F9;
+            font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background-color: #3B82F6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+        
+        .app-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .game-info {
+            color: #F1F5F9;
+            font-size: 14px;
+        }
+        
+        .progress-bar-container {
+            width: 100%;
+            height: 5px;
+            background-image: linear-gradient(to right, #3B82F6, #EC4899);
+        }
+        
+        .progress-indicator {
+            width: 65%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .timer-section {
+            display: flex;
+            justify-content: center;
+            padding: 30px 0;
+        }
+        
+        .timer {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 2px solid #FACC15;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: 700;
+            color: #FACC15;
+            box-shadow: 0 0 15px rgba(250, 204, 21, 0.3);
+        }
+        
+        .content-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+        
+        .question-container {
+            background-color: #111827;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .theme-badge {
+            background-color: rgba(30, 58, 138, 0.5);
+            color: #F1F5F9;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-block;
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .question-text {
+            font-size: 24px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 40px;
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .drag-n-drop-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .draggable-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .draggable-item {
+            background-color: #3B82F6;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: grab;
+            font-weight: 500;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .draggable-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .draggable-item:active {
+            cursor: grabbing;
+        }
+        
+        .drop-zones {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .drop-zone {
+            background-color: rgba(15, 23, 42, 0.5);
+            border: 2px dashed rgba(59, 130, 246, 0.4);
+            border-radius: 8px;
+            padding: 15px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .drop-zone-label {
+            font-weight: 600;
+            flex: 0 0 120px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .drop-zone-area {
+            flex: 1;
+            min-height: 50px;
+            background-color: rgba(15, 23, 42, 0.3);
+            border-radius: 6px;
+            padding: 8px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .dropped-item {
+            background-color: #3B82F6;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .submit-button {
+            background-image: linear-gradient(to right, #3B82F6, #EC4899);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        
+        .players-section {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+        
+        .player-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .player-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #3B82F6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: white;
+            font-size: 16px;
+            position: relative;
+        }
+        
+        .player-avatar.answered::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 12px;
+            height: 12px;
+            background-color: #22C55E;
+            border-radius: 50%;
+            border: 2px solid #080C17;
+        }
+        
+        .player-name {
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .status-tag {
+            font-size: 12px;
+            padding: 3px 8px;
+            border-radius: 12px;
+        }
+        
+        .status-thinking {
+            background-color: rgba(250, 204, 21, 0.15);
+            border: 1px solid #FACC15;
+            color: #FACC15;
+        }
+        
+        .status-answered {
+            background-color: rgba(34, 197, 94, 0.15);
+            border: 1px solid #22C55E;
+            color: #22C55E;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header class="header">
+            <div class="logo-section">
+                <div class="logo">🧠</div>
+                <a href="#" class="app-name">BrainBattle</a>
+            </div>
+            <div class="game-info">
+                <div class="question-number">Question 13/20</div>
+            </div>
+        </header>
+        
+        <div class="progress-bar-container">
+            <div class="progress-indicator"></div>
+        </div>
+        
+        <div class="timer-section">
+            <div class="timer">25</div>
+        </div>
+        
+        <div class="content-container">
+            <div class="question-container">
+                <div class="theme-badge">Histoire</div>
+                
+                <h2 class="question-text">Classez ces événements historiques par ordre chronologique :</h2>
+                
+                <div class="drag-n-drop-container">
+                    <div class="draggable-items">
+                        <div class="draggable-item">Première Guerre mondiale</div>
+                        <div class="draggable-item">Révolution française</div>
+                        <div class="draggable-item">Chute du mur de Berlin</div>
+                        <div class="draggable-item">Découverte de l'Amérique</div>
+                        <div class="draggable-item">Première mission lunaire</div>
+                    </div>
+                    
+                    <div class="drop-zones">
+                        <div class="drop-zone">
+                            <div class="drop-zone-label">1<sup>er</sup> :</div>
+                            <div class="drop-zone-area">
+                                <div class="dropped-item">Découverte de l'Amérique</div>
+                            </div>
+                        </div>
+                        
+                        <div class="drop-zone">
+                            <div class="drop-zone-label">2<sup>ème</sup> :</div>
+                            <div class="drop-zone-area">
+                                <div class="dropped-item">Révolution française</div>
+                            </div>
+                        </div>
+                        
+                        <div class="drop-zone">
+                            <div class="drop-zone-label">3<sup>ème</sup> :</div>
+                            <div class="drop-zone-area">
+                                <!-- Vide pour l'instant -->
+                            </div>
+                        </div>
+                        
+                        <div class="drop-zone">
+                            <div class="drop-zone-label">4<sup>ème</sup> :</div>
+                            <div class="drop-zone-area">
+                                <!-- Vide pour l'instant -->
+                            </div>
+                        </div>
+                        
+                        <div class="drop-zone">
+                            <div class="drop-zone-label">5<sup>ème</sup> :</div>
+                            <div class="drop-zone-area">
+                                <!-- Vide pour l'instant -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="submit-button">Valider ma réponse</button>
+            </div>
+            
+            <div class="players-section">
+                <div class="player-card">
+                    <div class="player-avatar">T</div>
+                    <div class="player-name">Thomas</div>
+                    <div class="status-tag status-thinking">En réflexion</div>
+                </div>
+                
+                <div class="player-card">
+                    <div class="player-avatar answered">L</div>
+                    <div class="player-name">Laura</div>
+                    <div class="status-tag status-answered">A répondu</div>
+                </div>
+                
+                <div class="player-card">
+                    <div class="player-avatar">M</div>
+                    <div class="player-name">Maxime</div>
+                    <div class="status-tag status-thinking">En réflexion</div>
+                </div>
+                
+                <div class="player-card">
+                    <div class="player-avatar answered">S</div>
+                    <div class="player-name">Sophie</div>
+                    <div class="status-tag status-answered">A répondu</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

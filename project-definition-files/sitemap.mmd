@@ -1,0 +1,42 @@
+flowchart TD
+    %% Pages d'accueil et authentification
+    A[Accueil non connecté] --> B{Connexion requise}
+    B -->|S'inscrire| C[Inscription]
+    B -->|Se connecter| D[Connexion]
+    C --> D
+    D --> E[Accueil connecté]
+    
+    %% Création et gestion de partie
+    E --> F[Créer une partie]
+    F --> F1[Sélection thèmes]
+    F1 --> F2[Invitations]
+    F2 --> G[Lobby d'attente]
+    E -->|Via code| G
+    G -->|Début partie| H[Phase questions]
+    H --> I[Phase correction]
+    I --> J[Phase résultats]
+    J -->|Nouvelle partie| F
+    J -->|Retour accueil| E
+    
+    %% Contribution aux questions
+    E --> K[Soumettre question]
+    K -->|Vérif admin| L{Rôle validateur?}
+    L -->|Oui| M[Interface validateur]
+    M --> E
+    
+    %% Administration
+    E --> N{Super admin?}
+    N -->|Oui| O[Interface admin]
+    O --> P[Gestion thèmes]
+    O --> R[Gestion utilisateurs]
+    
+    %% Points de décision - Style
+    classDef default fill:#1E3A8A,stroke:#3B82F6,color:#F1F5F9,font-weight:bold
+    classDef decision fill:#0F172A,stroke:#FACC15,color:#F1F5F9,font-weight:bold
+    classDef game fill:#EC4899,stroke:#FACC15,color:#F1F5F9,font-weight:bold
+    classDef admin fill:#22C55E,stroke:#3B82F6,color:#F1F5F9,font-weight:bold
+    
+    %% Application des styles
+    class B,L,N decision
+    class H,I,J game
+    class M,O,P,R admin

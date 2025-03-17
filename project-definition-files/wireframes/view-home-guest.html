@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrainBattle - Accueil</title>
+    <style>
+        :root {
+            /* Palette principale */
+            --primary-color: #1E3A8A; /* Bleu profond */
+            --secondary-color: #3B82F6; /* Bleu électrique */
+            --accent-color: #FACC15; /* Jaune vif */
+            --accent-color-2: #EC4899; /* Rose */
+            --dark-bg: #0F172A; /* Fond bleu très foncé */
+            --text-light: #F1F5F9; /* Texte clair */
+            --black: #000000;
+            --white: #FFFFFF;
+            
+            /* Autres variables */
+            --border-radius: 8px;
+            --box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--black) 100%);
+            color: var(--text-light);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--white);
+            text-shadow: 0 0 10px rgba(59, 130, 246, 0.6);
+        }
+        
+        .logo-icon {
+            background: var(--secondary-color);
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.7);
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .button {
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        
+        .button-outline {
+            background: transparent;
+            border: 2px solid var(--secondary-color);
+            color: var(--secondary-color);
+        }
+        
+        .button-primary {
+            background: var(--secondary-color);
+            color: var(--white);
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 80px 0;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 16px;
+            color: var(--white);
+            text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+        }
+        
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            color: var(--text-light);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-button {
+            padding: 16px 32px;
+            font-size: 20px;
+            background: linear-gradient(90deg, var(--secondary-color) 0%, var(--accent-color-2) 100%);
+            color: var(--white);
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(236, 72, 153, 0.5);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            padding: 50px 0;
+        }
+        
+        .feature-card {
+            background: rgba(15, 23, 42, 0.7);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            text-align: center;
+        }
+        
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        
+        .feature-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--white);
+        }
+        
+        .footer {
+            margin-top: 50px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 30px 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .footer-link {
+            color: var(--text-light);
+            text-decoration: none;
+        }
+        
+        .copyright {
+            color: rgba(255, 255, 255, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon">🧠</div>
+                BrainBattle
+            </div>
+            <div class="auth-buttons">
+                <button class="button button-outline">Connexion</button>
+                <button class="button button-primary">Inscription</button>
+            </div>
+        </header>
+        
+        <main>
+            <section class="hero">
+                <h1>Affrontez vos amis dans des batailles de connaissances !</h1>
+                <p>Créez des quiz personnalisés, défiez vos amis en temps réel et découvrez qui est le vrai champion parmi vous.</p>
+                <button class="hero-button">Commencer l'aventure</button>
+            </section>
+            
+            <section class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">🎮</div>
+                    <h3 class="feature-title">Défiez vos amis</h3>
+                    <p>Créez des parties personnalisées et invitez jusqu'à 10 amis pour des duels intellectuels palpitants.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🧩</div>
+                    <h3 class="feature-title">Questions variées</h3>
+                    <p>Des milliers de questions dans de nombreux thèmes pour tester vos connaissances et celles de vos amis.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🏆</div>
+                    <h3 class="feature-title">Montez sur le podium</h3>
+                    <p>Accumulez des points, répondez rapidement et visez la première place dans un classement dynamique.</p>
+                </div>
+            </section>
+        </main>
+        
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="copyright">© 2025 BrainBattle</div>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">À propos</a>
+                    <a href="#" class="footer-link">Contact</a>
+                    <a href="#" class="footer-link">Conditions d'utilisation</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
