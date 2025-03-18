@@ -1,0 +1,1039 @@
+﻿Accueil Non Connecté
+Description générale: Page d'accueil principale qui présente BrainBattle aux visiteurs non authentifiés, mettant en avant les fonctionnalités clés et incitant à l'inscription ou à la connexion.
+Acteurs: Utilisateurs non connectés, visiteurs
+Préconditions: Aucune (point d'entrée de l'application)
+Scénarios principaux:
+1. UC-101: Navigation vers la page d'inscription
+   * Déclencheur: L'utilisateur clique sur le bouton "Inscription" dans l'en-tête
+   * Étapes:
+      1. L'utilisateur arrive sur la page d'accueil
+      2. L'utilisateur clique sur le bouton "Inscription" dans le coin supérieur droit
+   * Résultat attendu: L'utilisateur est redirigé vers la page d'inscription
+   * Alternatives & Exceptions: Aucune
+2. UC-102: Navigation vers la page de connexion
+   * Déclencheur: L'utilisateur clique sur le bouton "Connexion" dans l'en-tête
+   * Étapes:
+      1. L'utilisateur arrive sur la page d'accueil
+      2. L'utilisateur clique sur le bouton "Connexion" dans le coin supérieur droit
+   * Résultat attendu: L'utilisateur est redirigé vers la page de connexion
+   * Alternatives & Exceptions: Aucune
+3. UC-103: Démarrage de l'aventure (CTA principal)
+   * Déclencheur: L'utilisateur clique sur le bouton "Commencer l'aventure"
+   * Étapes:
+      1. L'utilisateur arrive sur la page d'accueil
+      2. L'utilisateur clique sur le bouton "Commencer l'aventure" dans la section héro
+   * Résultat attendu: L'utilisateur est redirigé vers la page d'inscription
+   * Alternatives & Exceptions:
+      1. A1: Si l'utilisateur avait déjà une session active mais expirée - Redirection vers la page de connexion avec un message adapté
+4. UC-104: Consultation des liens de pied de page
+   * Déclencheur: L'utilisateur clique sur un lien dans le pied de page
+   * Étapes:
+      1. L'utilisateur fait défiler jusqu'au pied de page
+      2. L'utilisateur clique sur "À propos", "Contact" ou "Conditions d'utilisation"
+   * Résultat attendu: L'utilisateur est redirigé vers la page correspondante
+   * Alternatives & Exceptions: Aucune
+États et transitions:
+* État unique: Affichage statique de la page d'accueil
+* Transitions vers: Page d'inscription, Page de connexion, Pages informatives (À propos, Contact, CGU)
+Validations et contraintes:
+* Page entièrement publique, aucune validation requise
+* Optimisée pour desktop (MVP1)
+* Temps de chargement cible < 2 secondes
+Éléments d'interface critiques:
+* Bouton "Inscription" (header): Style button-primary, déclenche UC-101
+* Bouton "Connexion" (header): Style button-outline, déclenche UC-102
+* Bouton "Commencer l'aventure" (section héro): Style hero-button avec animation subtile, déclenche UC-103
+* Cartes de fonctionnalités: Affichage informatif uniquement, pas d'interaction
+* Liens de pied de page: Style footer-link, déclenchent UC-104
+Page d'Inscription
+Description générale: Formulaire permettant aux nouveaux utilisateurs de créer un compte sur BrainBattle.
+Acteurs: Utilisateurs non connectés
+Préconditions: L'utilisateur a décidé de créer un compte
+Scénarios principaux:
+1. UC-201: Inscription réussie
+   * Déclencheur: L'utilisateur remplit le formulaire et clique sur "S'inscrire"
+   * Étapes:
+      1. L'utilisateur saisit un nom d'utilisateur valide
+      2. L'utilisateur saisit une adresse email valide
+      3. L'utilisateur saisit un mot de passe conforme aux exigences
+      4. L'utilisateur confirme le mot de passe
+      5. L'utilisateur coche la case d'acceptation des conditions
+      6. L'utilisateur clique sur le bouton "S'inscrire"
+   * Résultat attendu: Compte créé, utilisateur redirigé vers la page d'accueil connecté
+   * Alternatives & Exceptions:
+      1. E1: Nom d'utilisateur déjà pris - Affichage d'une erreur sous le champ avec suggestion
+      2. E2: Email déjà utilisé - Affichage d'une erreur avec lien vers récupération de mot de passe
+      3. E3: Mots de passe non identiques - Mise en évidence des deux champs avec message d'erreur
+      4. E4: Mot de passe trop faible - Affichage d'instructions pour un mot de passe plus fort
+      5. E5: Conditions non acceptées - Message d'erreur et mise en évidence de la case à cocher
+2. UC-202: Retour à l'accueil
+   * Déclencheur: L'utilisateur clique sur le bouton "Accueil" ou le logo
+   * Étapes:
+      1. L'utilisateur clique sur le bouton "Accueil" ou sur le logo BrainBattle
+   * Résultat attendu: L'utilisateur est redirigé vers la page d'accueil non connecté
+   * Alternatives & Exceptions:
+      1. A1: L'utilisateur a commencé à remplir le formulaire - Affichage d'une confirmation avant de quitter
+3. UC-203: Navigation vers la connexion
+   * Déclencheur: L'utilisateur clique sur "Se connecter"
+   * Étapes:
+      1. L'utilisateur clique sur le lien "Se connecter" en bas du formulaire
+   * Résultat attendu: L'utilisateur est redirigé vers la page de connexion
+   * Alternatives & Exceptions:
+      1. A1: L'utilisateur a commencé à remplir le formulaire - Affichage d'une confirmation avant de quitter
+4. UC-204: Consultation des conditions d'utilisation
+   * Déclencheur: L'utilisateur clique sur le lien des conditions
+   * Étapes:
+      1. L'utilisateur clique sur le lien "conditions d'utilisation" ou "politique de confidentialité"
+   * Résultat attendu: Ouverture des conditions dans un nouvel onglet ou modal
+   * Alternatives & Exceptions: Aucune
+États et transitions:
+* État initial: Formulaire vide
+* États intermédiaires: Formulaire partiellement rempli, avec validation en temps réel
+* États de validation: Affichage dynamique de la force du mot de passe
+* Transitions vers: Page d'accueil connecté (après inscription réussie), Page d'accueil non connecté, Page de connexion
+Validations et contraintes:
+* Nom d'utilisateur: 3-20 caractères, alphanumérique, unique
+* Email: Format valide, unique dans la base
+* Mot de passe: Minimum 8 caractères, force évaluée dynamiquement
+* Confirmation mot de passe: Doit correspondre au mot de passe
+* Case CGU: Doit être cochée
+Éléments d'interface critiques:
+* Champ nom d'utilisateur: Validation à la perte de focus (unicité asynchrone)
+* Champ mot de passe: Affichage dynamique de la force via indicateur visuel (barre colorée)
+* Bouton "S'inscrire": Désactivé jusqu'à ce que tous les champs soient valides
+* Bouton "Accueil": Permet de revenir à la page d'accueil (avec confirmation si formulaire entamé)
+* Lien "Se connecter": Redirection vers la page de connexion
+Page de Connexion
+Description générale: Interface permettant aux utilisateurs existants de s'authentifier sur BrainBattle.
+Acteurs: Utilisateurs enregistrés non connectés
+Préconditions: L'utilisateur possède déjà un compte
+Scénarios principaux:
+1. UC-301: Connexion réussie
+   * Déclencheur: L'utilisateur remplit le formulaire et clique sur "Se connecter"
+   * Étapes:
+      1. L'utilisateur saisit son email ou nom d'utilisateur
+      2. L'utilisateur saisit son mot de passe
+      3. L'utilisateur clique sur le bouton "Se connecter"
+   * Résultat attendu: Authentification réussie, redirection vers la page d'accueil connecté
+   * Alternatives & Exceptions:
+      1. E1: Identifiants incorrects - Message d'erreur générique "Email/nom d'utilisateur ou mot de passe incorrect"
+      2. E2: Compte bloqué - Message explicatif avec procédure de déblocage
+      3. A1: "Se souvenir de moi" coché - Session prolongée (30 jours vs 24h)
+2. UC-302: Mot de passe oublié
+   * Déclencheur: L'utilisateur clique sur "Mot de passe oublié?"
+   * Étapes:
+      1. L'utilisateur clique sur le lien "Mot de passe oublié?"
+      2. L'utilisateur est redirigé vers une page de récupération de mot de passe
+   * Résultat attendu: Affichage de la page de récupération de mot de passe
+   * Alternatives & Exceptions: Aucune
+3. UC-303: Retour à l'accueil
+   * Déclencheur: L'utilisateur clique sur le bouton "Accueil" ou le logo
+   * Étapes:
+      1. L'utilisateur clique sur le bouton "Accueil" ou sur le logo BrainBattle
+   * Résultat attendu: L'utilisateur est redirigé vers la page d'accueil non connecté
+   * Alternatives & Exceptions: Aucune
+4. UC-304: Navigation vers l'inscription
+   * Déclencheur: L'utilisateur clique sur "S'inscrire"
+   * Étapes:
+      1. L'utilisateur clique sur le lien "S'inscrire" en bas du formulaire
+   * Résultat attendu: L'utilisateur est redirigé vers la page d'inscription
+   * Alternatives & Exceptions: Aucune
+États et transitions:
+* État initial: Formulaire vide
+* État en cours de saisie: Validation basique des champs (non vides)
+* État de soumission: Pendant la vérification des identifiants (affichage d'un indicateur de chargement)
+* Transitions vers: Page d'accueil connecté, Page de récupération de mot de passe, Page d'accueil non connecté, Page d'inscription
+Validations et contraintes:
+* Email/Nom d'utilisateur: Champ obligatoire
+* Mot de passe: Champ obligatoire
+* Validation côté client minimale (vérification de champs non vides uniquement)
+* Validation principale côté serveur
+Éléments d'interface critiques:
+* Champs de formulaire: Styles cohérents avec la page d'inscription
+* Case à cocher "Se souvenir de moi": Prolonge la durée de la session
+* Lien "Mot de passe oublié?": Redirige vers la procédure de récupération
+* Bouton "Se connecter": Style principal, déclenche la tentative d'authentification
+* Bouton "Accueil": Permet de revenir à la page d'accueil
+* Lien "S'inscrire": Redirection vers la page d'inscription
+Accueil Connecté
+Description générale: Dashboard principal de l'utilisateur connecté, affichant les options de jeu, un guide rapide et les thèmes disponibles.
+Acteurs: Utilisateurs connectés (tous rôles)
+Préconditions: L'utilisateur est authentifié
+Scénarios principaux:
+1. UC-401: Création d'une nouvelle partie
+   * Déclencheur: L'utilisateur clique sur "Créer une partie"
+   * Étapes:
+      * L'utilisateur clique sur le bouton principal "Créer une partie"
+   * Résultat attendu: L'utilisateur est redirigé vers l'interface de création de partie
+   * Alternatives & Exceptions:
+      * E1: Problème de connexion - Message d'erreur et option de réessayer
+2. UC-402: Exploration des thèmes
+   * Déclencheur: L'utilisateur consulte la section des thèmes
+   * Étapes:
+      * L'utilisateur fait défiler jusqu'à la section "Thèmes disponibles"
+      * L'utilisateur consulte les différents thèmes et leur nombre de questions
+   * Résultat attendu: Affichage informatif des thèmes disponibles
+   * Alternatives & Exceptions:
+      * A1: Clic sur une carte de thème - Dans le MVP1, comportement informatif uniquement
+3. UC-403: Connexion à une partie existante
+   * Déclencheur: L'utilisateur possède un code d'invitation
+   * Étapes:
+      * L'utilisateur entre le code d'invitation (à implémenter - non visible sur le wireframe actuel)
+      * L'utilisateur confirme le code
+   * Résultat attendu: Redirection vers le lobby d'attente de la partie correspondante
+   * Alternatives & Exceptions:
+      * E1: Code invalide - Message d'erreur avec suggestion de vérifier le code
+      * E2: Partie déjà commencée - Message indiquant que la partie a déjà démarré
+      * E3: Partie pleine (max 10 participants) - Message indiquant que la partie est complète
+4. UC-404: Navigation vers soumission de question
+   * Déclencheur: L'utilisateur souhaite contribuer à la base de questions
+   * Étapes:
+      * L'utilisateur clique sur le bouton de soumission de question (à implémenter - non visible sur le wireframe actuel)
+   * Résultat attendu: Redirection vers l'interface de soumission de question
+   * Alternatives & Exceptions: Aucune
+5. UC-405: Accès au profil utilisateur
+   * Déclencheur: L'utilisateur clique sur son avatar/nom
+   * Étapes:
+      * L'utilisateur clique sur son avatar ou nom d'utilisateur dans l'en-tête
+   * Résultat attendu: Affichage d'un menu déroulant avec options de profil
+   * Alternatives & Exceptions: Aucune
+6. UC-406: Déconnexion
+   * Déclencheur: L'utilisateur souhaite se déconnecter
+   * Étapes:
+      * L'utilisateur clique sur son avatar/nom
+      * L'utilisateur sélectionne "Déconnexion" dans le menu déroulant
+   * Résultat attendu: Déconnexion et redirection vers la page d'accueil non connecté
+   * Alternatives & Exceptions:
+      * A1: Modifications non enregistrées - Confirmation avant déconnexion
+États et transitions:
+* État principal: Dashboard utilisateur
+* Transitions vers: Interface de création de partie, Lobby d'attente, Interface de soumission de question, Options de profil, Page d'accueil non connecté
+Validations et contraintes:
+* Vérification de session active avant toute action
+* Accès aux fonctionnalités selon le rôle de l'utilisateur
+* Affichage adapté à l'historique de l'utilisateur (parties récentes, thèmes favoris - fonctionnalités futures)
+Éléments d'interface critiques:
+* Bouton "Créer une partie": Style accentué avec animation pulse, déclencheur principal d'action
+* Cartes de thèmes: Affichage visuel des thèmes disponibles avec compteurs de questions
+* Avatar/nom utilisateur: Accès au menu de profil et déconnexion
+* Section "Comment jouer": Présentation des 3 étapes du jeu pour les nouveaux utilisateurs
+Création de Partie - Sélection des Thèmes
+Description générale: Interface permettant à l'utilisateur de sélectionner les thèmes qui composeront sa partie de quiz.
+Acteurs: Utilisateurs connectés avec rôle standard minimum
+Préconditions: L'utilisateur est authentifié et a initié la création d'une partie
+Scénarios principaux:
+1. UC-501: Sélection/Désélection des thèmes
+   * Déclencheur: L'utilisateur clique sur une carte de thème
+   * Étapes:
+      * L'utilisateur consulte la grille de thèmes disponibles
+      * L'utilisateur clique sur une carte de thème pour la désélectionner
+      * Le système met à jour le statut de la carte (selected/not-selected)
+      * Le système recalcule le nombre total de questions disponibles
+   * Résultat attendu: Mise à jour visuelle des thèmes sélectionnés et du compteur
+   * Alternatives & Exceptions:
+      * A1: L'utilisateur clique sur un thème déjà désélectionné - Le thème est resélectionné
+      * E1: Désélection qui rendrait le nombre de questions < 20 - Message d'avertissement, bouton "Créer la partie" désactivé
+2. UC-502: Consultation des informations de thème
+   * Déclencheur: L'utilisateur observe un thème
+   * Étapes:
+      * L'utilisateur voit l'icône, le nom, le nombre de questions et la difficulté du thème
+   * Résultat attendu: Affichage informatif permettant d'évaluer le thème
+   * Alternatives & Exceptions: Aucune
+3. UC-503: Validation de la sélection et passage à l'étape suivante
+   * Déclencheur: L'utilisateur clique sur "Créer la partie"
+   * Étapes:
+      * L'utilisateur vérifie que le résumé affiche un nombre suffisant de questions
+      * L'utilisateur clique sur le bouton "Créer la partie"
+   * Résultat attendu: Redirection vers l'écran d'invitations
+   * Alternatives & Exceptions:
+      * E1: Problème réseau - Message d'erreur avec option de réessayer
+      * E2: Erreur serveur - Message d'erreur avec suggestion de contacter le support
+4. UC-504: Annulation de la création de partie
+   * Déclencheur: L'utilisateur clique sur "Annuler"
+   * Étapes:
+      * L'utilisateur clique sur le bouton "Annuler"
+   * Résultat attendu: Retour à la page d'accueil connecté
+   * Alternatives & Exceptions:
+      * A1: L'utilisateur a modifié la sélection des thèmes - Message de confirmation avant d'annuler
+États et transitions:
+* État initial: Tous les thèmes sélectionnés par défaut
+* États intermédiaires: Différentes combinaisons de thèmes sélectionnés/désélectionnés
+* État d'erreur: Moins de 20 questions disponibles (message d'avertissement)
+* Transitions vers: Page d'invitations (suite), Page d'accueil connecté (annulation)
+Validations et contraintes:
+* Minimum de 20 questions requises parmi les thèmes sélectionnés
+* Affichage du badge "Prêt à continuer" seulement si les conditions sont remplies
+* Bouton "Créer la partie" désactivé si le nombre minimal de questions n'est pas atteint
+Éléments d'interface critiques:
+* Cartes de thèmes: Affichent le statut de sélection, icône, nom, nombre de questions et niveau de difficulté
+* Résumé: Affiche le nombre total de questions disponibles et le statut (prêt ou non)
+* Bouton "Créer la partie": Style principal, déclenche la progression vers l'étape suivante
+* Bouton "Annuler": Style secondaire, permet de revenir à l'accueil
+Salle d'Attente (Invitations)
+Description générale: Interface permettant à l'hôte de la partie de partager le code d'invitation, de voir les participants qui rejoignent et de lancer la partie.
+Acteurs: Hôte de la partie (créateur), Participants
+Préconditions: L'hôte a créé une partie et sélectionné les thèmes
+Scénarios principaux:
+1. UC-601: Copie du code d'invitation
+   * Déclencheur: L'hôte clique sur le bouton de copie
+   * Étapes:
+      * L'hôte visualise le code d'invitation affiché
+      * L'hôte clique sur l'icône de copie (📋)
+   * Résultat attendu: Code copié dans le presse-papier avec confirmation visuelle
+   * Alternatives & Exceptions:
+      * E1: Erreur lors de la copie - Message d'erreur avec suggestion de copie manuelle
+2. UC-602: Attente des participants
+   * Déclencheur: Entrée dans la salle d'attente
+   * Étapes:
+      * L'hôte partage le code avec ses amis (hors application)
+      * Le système affiche dynamiquement les participants qui rejoignent
+      * Les participants apparaissent avec leur avatar, nom et statut "Prêt"
+   * Résultat attendu: Mise à jour en temps réel de la liste des participants
+   * Alternatives & Exceptions:
+      * E1: Un participant se déconnecte - Son avatar disparaît de la liste
+      * E2: Problème de connexion réseau - Notification et tentative de reconnexion
+3. UC-603: Lancement de la partie
+   * Déclencheur: L'hôte clique sur "Lancer la partie"
+   * Étapes:
+      * L'hôte vérifie que tous les participants souhaités sont présents
+      * L'hôte clique sur le bouton "Lancer la partie"
+   * Résultat attendu: Tous les participants sont redirigés vers la phase de questions
+   * Alternatives & Exceptions:
+      * E1: Problème de connexion - Message d'erreur avec option de réessayer
+      * E2: Aucun participant autre que l'hôte - Message suggérant d'attendre des participants
+4. UC-604: Annulation de la partie
+   * Déclencheur: L'hôte clique sur "Annuler"
+   * Étapes:
+      * L'hôte clique sur le bouton "Annuler"
+   * Résultat attendu: Dissolution de la partie et retour à la page d'accueil connecté pour tous les participants
+   * Alternatives & Exceptions:
+      * A1: Des participants ont déjà rejoint - Message de confirmation avant d'annuler
+États et transitions:
+* État initial: Salle d'attente vide (uniquement l'hôte)
+* États intermédiaires: Arrivée progressive des participants (1 à 10)
+* État final: Partie complète ou suffisante pour commencer
+* Transitions vers: Phase de questions (lancement), Page d'accueil connecté (annulation)
+Validations et contraintes:
+* Maximum de 10 participants (incluant l'hôte)
+* Pas de minimum de participants (possible de jouer seul, mais peu intéressant)
+* L'hôte est le seul à pouvoir lancer ou annuler la partie
+Éléments d'interface critiques:
+* Code d'invitation: Affiché de manière proéminente avec bouton de copie
+* Liste des participants: Mise à jour dynamique avec avatars et statuts
+* Bouton "Lancer la partie": Style accentué avec animation pulse, déclenche le début du jeu
+* Bouton "Annuler": Style secondaire, permet d'abandonner la partie en cours de création
+Phase de Questions (QCM)
+Description générale: Interface principale de jeu où les questions sont présentées séquentiellement et où les joueurs doivent répondre dans le temps imparti.
+Acteurs: Tous les participants à la partie
+Préconditions: La partie a été lancée par l'hôte
+Scénarios principaux:
+1. UC-701: Réponse à une question QCM
+   * Déclencheur: Une question est affichée
+   * Étapes:
+      1. L'utilisateur lit la question et observe l'éventuel média associé
+      2. L'utilisateur évalue le niveau de difficulté et le temps restant
+      3. L'utilisateur sélectionne une réponse parmi les choix proposés
+   * Résultat attendu: Réponse enregistrée, statut du joueur mis à jour (badge "répondu")
+   * Alternatives & Exceptions:
+      1. A1: L'utilisateur change d'avis - Peut sélectionner une autre réponse tant que le temps n'est pas écoulé
+      2. E1: Temps écoulé avant réponse - La dernière sélection ou aucune réponse est enregistrée
+2. UC-702: Suivi de l'avancement des autres joueurs
+   * Déclencheur: Un autre joueur répond à la question
+   * Étapes:
+      1. L'utilisateur observe la section "Statut des joueurs" en bas de l'écran
+      2. L'avatar d'un autre joueur passe du statut "en réflexion" à "répondu"
+   * Résultat attendu: Mise à jour visuelle en temps réel du statut des autres joueurs
+   * Alternatives & Exceptions: Aucune
+3. UC-703: Progression à la question suivante
+   * Déclencheur: Tous les joueurs ont répondu ou le temps est écoulé
+   * Étapes:
+      1. Le système enregistre toutes les réponses
+      2. Le système affiche brièvement une transition
+      3. La question suivante est affichée
+   * Résultat attendu: Affichage de la question suivante avec réinitialisation du chronomètre
+   * Alternatives & Exceptions:
+      1. A1: Dernière question - Transition vers la phase de correction
+4. UC-704: Suivi de la progression globale
+   * Déclencheur: L'utilisateur consulte l'en-tête
+   * Étapes:
+      1. L'utilisateur observe l'indicateur de progression (X/20)
+      2. L'utilisateur voit la barre de progression correspondante
+   * Résultat attendu: Information visuelle sur l'avancement dans le quiz
+   * Alternatives & Exceptions: Aucune
+États et transitions:
+* État initial: Question affichée, chronomètre lancé, aucune réponse sélectionnée
+* États intermédiaires: Réponse sélectionnée, attente des autres joueurs
+* État final: Toutes les réponses enregistrées ou temps écoulé
+* Transitions: Entre les différentes questions (1 à 20), puis vers la phase de correction
+Validations et contraintes:
+* Chronomètre de 10-20 secondes par question (selon la difficulté)
+* Une seule réponse possible par joueur et par question (dans le cas du QCM)
+* Impossibilité de changer sa réponse une fois le temps écoulé
+Éléments d'interface critiques:
+* Options de réponse: Style interactif avec mise en évidence de la sélection
+* Chronomètre: Décompte visuel et numérique du temps restant
+* Barre de progression supérieure: Indique l'avancement global (X/20)
+* Statut des joueurs: Affiche en temps réel qui a répondu et qui réfléchit encore
+Phase de Correction
+Description générale: Interface permettant au créateur de la partie de diriger la correction des réponses, avec affichage séquentiel des réponses de chaque participant et possibilité de faire voter en cas de litige.
+Acteurs: Hôte (rôle principal), Participants (rôle secondaire)
+Préconditions: La phase de questions est terminée (toutes les questions ont été posées)
+Scénarios principaux:
+1. UC-801: Validation d'une réponse correcte
+   * Déclencheur: L'hôte examine la réponse d'un participant
+   * Étapes:
+      * L'hôte visualise la question, la réponse correcte et la réponse du participant
+      * L'hôte constate que la réponse est correcte
+      * L'hôte clique sur le bouton "Trop facile!" (accepter)
+   * Résultat attendu: Points attribués au joueur, passage au participant suivant
+   * Alternatives & Exceptions:
+      * A1: Plusieurs joueurs avec la même réponse - Validation appliquée à tous
+2. UC-802: Rejet d'une réponse incorrecte
+   * Déclencheur: L'hôte examine la réponse d'un participant
+   * Étapes:
+      * L'hôte visualise la question, la réponse correcte et la réponse du participant
+      * L'hôte constate que la réponse est incorrecte
+      * L'hôte clique sur le bouton "Non, non!" (rejeter)
+   * Résultat attendu: Aucun point attribué, passage au participant suivant
+   * Alternatives & Exceptions: Aucune
+3. UC-803: Initiation d'un vote pour une réponse litigieuse
+   * Déclencheur: L'hôte hésite sur la validité d'une réponse
+   * Étapes:
+      * L'hôte visualise la question, la réponse correcte et la réponse du participant
+      * L'hôte estime que la réponse est discutable ou mérite un avis collectif
+      * L'hôte clique sur le bouton "On vote?"
+      * Une interface de vote apparaît pour tous les participants
+      * Les participants votent (Oui/Non) dans un délai de 5 secondes
+      * Le résultat du vote est affiché
+   * Résultat attendu: Décision collective sur la validité de la réponse
+   * Alternatives & Exceptions:
+      * A1: L'hôte peut annuler le vote avant la fin du décompte
+      * A2: En cas d'égalité, l'hôte a le vote décisif
+      * E1: Certains joueurs ne votent pas - Seuls les votes exprimés sont comptés
+4. UC-804: Navigation entre les réponses des participants
+   * Déclencheur: L'hôte clique sur "Suivant" ou "Précédent"
+   * Étapes:
+      * L'hôte valide ou rejette la réponse actuelle
+      * L'hôte clique sur le bouton "Suivant" pour voir la réponse du participant suivant
+      * Le système affiche la réponse du participant suivant
+   * Résultat attendu: Navigation séquentielle entre les réponses des participants
+   * Alternatives & Exceptions:
+      * A1: Premier participant - Bouton "Précédent" désactivé
+      * A2: Dernier participant - Bouton "Suivant" désactivé, bouton "Question suivante" activé
+5. UC-805: Passage à la question suivante
+   * Déclencheur: L'hôte clique sur "Question suivante"
+   * Étapes:
+      * L'hôte a examiné et validé/rejeté les réponses de tous les participants
+      * Le bouton "Question suivante" devient actif
+      * L'hôte clique sur "Question suivante"
+   * Résultat attendu: Affichage de la question suivante et des réponses associées
+   * Alternatives & Exceptions:
+      * A1: Dernière question - Transition vers la phase de résultats
+      * E1: Tentative de passage sans avoir examiné toutes les réponses - Bouton désactivé
+États et transitions:
+* État initial: Affichage de la première question et de la réponse du premier participant
+* États de navigation: Différentes combinaisons de participants/questions
+* État de vote: Superposition de l'interface de vote avec décompte
+* État final: Dernière question, dernier participant évalué
+* Transitions vers: Prochaine réponse, Prochaine question, Phase de résultats
+Validations et contraintes:
+* Obligation d'examiner toutes les réponses des participants avant de passer à la question suivante
+* Vote limité à 5 secondes
+* Décision finale appartenant à l'hôte (même après un vote)
+Éléments d'interface critiques:
+* Question et réponse correcte: Affichés en permanence en haut
+* Carte du participant: Affiche l'avatar, le nom et la réponse du participant
+* Boutons d'action: "Trop facile!" (accepter), "Non, non!" (rejeter), "On vote?" (cas litigieux)
+* Navigation: Boutons "Précédent", "Suivant", "Question suivante"
+* Overlay de vote: Interface superposée avec décompte, options Oui/Non
+Phase de Questions - Réponse Textuelle
+Description générale: Interface de jeu pour les questions à réponse libre où les joueurs doivent saisir une réponse textuelle.
+Acteurs: Tous les participants à la partie
+Préconditions: La partie a été lancée et une question à réponse textuelle est présentée
+Scénarios principaux:
+1. UC-711: Saisie et soumission d'une réponse textuelle
+   * Déclencheur: Une question à réponse textuelle est affichée
+   * Étapes:
+      1. L'utilisateur lit la question et l'éventuelle indication d'orthographe
+      2. L'utilisateur saisit sa réponse dans le champ de texte
+      3. L'utilisateur clique sur "Valider ma réponse"
+   * Résultat attendu: Réponse enregistrée, statut du joueur mis à jour (badge "répondu")
+   * Alternatives & Exceptions:
+      1. A1: L'utilisateur modifie sa réponse avant validation - Seule la version soumise est prise en compte
+      2. E1: Temps écoulé avant soumission - La réponse dans le champ est automatiquement soumise
+      3. E2: Champ vide à la soumission - Message discret suggérant d'entrer une réponse
+2. UC-712: Observation de l'indice d'orthographe
+   * Déclencheur: L'utilisateur lit les instructions sous le champ de réponse
+   * Étapes:
+      1. L'utilisateur voit l'indication "L'orthographe compte !"
+      2. L'utilisateur porte une attention particulière à la précision de sa réponse
+   * Résultat attendu: Utilisateur informé de l'importance de l'orthographe dans l'évaluation
+   * Alternatives & Exceptions: Aucune
+3. UC-713: Navigation par tabulation ou entrée
+   * Déclencheur: L'utilisateur utilise les touches Tab ou Entrée
+   * Étapes:
+      1. L'utilisateur saisit sa réponse
+      2. L'utilisateur appuie sur Tab pour naviguer vers le bouton de validation
+      3. L'utilisateur appuie sur Entrée pour soumettre sa réponse
+   * Résultat attendu: Navigation et soumission efficaces par clavier
+   * Alternatives & Exceptions: Aucune
+États et transitions:
+* État initial: Champ de texte vide, focus automatique sur le champ
+* États intermédiaires: Saisie en cours, champ partiellement rempli
+* État final: Réponse soumise, champ en lecture seule
+* Transitions vers: Question suivante (après réponse de tous les joueurs ou temps écoulé)
+Validations et contraintes:
+* Champ de texte acceptant tous les caractères
+* Pas de limite stricte de caractères pour permettre des réponses détaillées
+* Focus automatique sur le champ de texte pour accélérer la saisie
+* Possibilité de soumettre des réponses vides (considérées comme incorrectes)
+Éléments d'interface critiques:
+* Champ de saisie: Style adapté, taille suffisante pour les réponses
+* Indication "L'orthographe compte !": Rappel visuel de l'exigence de précision
+* Bouton "Valider ma réponse": Déclenche la soumission, désactivé après soumission
+Phase de Questions - Réponse Textuelle avec Image
+Description générale: Interface de jeu pour les questions incluant une image comme support visuel et nécessitant une réponse textuelle.
+Acteurs: Tous les participants à la partie
+Préconditions: La partie a été lancée et une question avec image est présentée
+Scénarios principaux:
+1. UC-721: Analyse de l'image et saisie de réponse
+   * Déclencheur: Une question avec image est affichée
+   * Étapes:
+      * L'utilisateur lit la question
+      * L'utilisateur analyse l'image affichée
+      * L'utilisateur saisit sa réponse dans le champ de texte
+      * L'utilisateur clique sur "Valider ma réponse"
+   * Résultat attendu: Réponse enregistrée, statut du joueur mis à jour
+   * Alternatives & Exceptions:
+      * E1: Image ne se charge pas - Notification d'erreur avec possibilité de signalement
+      * E2: Temps écoulé avant soumission - La réponse en cours est automatiquement soumise
+2. UC-722: Agrandissement de l'image (si disponible)
+   * Déclencheur: L'utilisateur souhaite voir l'image en plus grand
+   * Étapes:
+      * L'utilisateur clique sur l'image
+      * L'image s'agrandit dans un overlay ou une modal
+      * L'utilisateur examine les détails de l'image
+      * L'utilisateur ferme l'affichage agrandi pour revenir à la question
+   * Résultat attendu: Visualisation détaillée de l'image sans perturber le chronomètre
+   * Alternatives & Exceptions:
+      * E1: Problème d'affichage - Option pour revenir à l'affichage normal
+États et transitions:
+* État initial: Image chargée, champ de texte vide
+* États intermédiaires: Éventuel agrandissement d'image, saisie en cours
+* État final: Réponse soumise, interface en lecture seule
+* Transitions vers: Question suivante (après réponse de tous les joueurs ou temps écoulé)
+Validations et contraintes:
+* Taille d'image optimisée pour un chargement rapide
+* Format d'image responsive s'adaptant aux différentes tailles d'écran
+* Champ de texte configuré de manière similaire aux questions textuelles standard
+Éléments d'interface critiques:
+* Conteneur d'image: Bien dimensionné, avec bordure légère pour distinction
+* Champ de saisie: Positionné sous l'image, suffisamment grand pour la réponse
+* Bouton de validation: Style cohérent avec les autres types de questions
+Phase de Questions - Réponse Textuelle avec Son
+Description générale: Interface de jeu pour les questions basées sur un contenu audio, nécessitant une réponse textuelle.
+Acteurs: Tous les participants à la partie
+Préconditions: La partie a été lancée et une question audio est présentée
+Scénarios principaux:
+1. UC-731: Lecture du contenu audio
+   * Déclencheur: Une question audio est affichée
+   * Étapes:
+      * L'utilisateur lit la question
+      * L'utilisateur clique sur le bouton de lecture (▶️)
+      * L'audio se lance et un indicateur visuel apparaît pendant la lecture
+      * L'utilisateur écoute attentivement le contenu audio
+   * Résultat attendu: Lecture de l'audio permettant à l'utilisateur d'identifier la réponse
+   * Alternatives & Exceptions:
+      * A1: L'utilisateur met en pause l'audio - Possibilité de reprendre la lecture
+      * E1: Problème de lecture audio - Message d'erreur avec option alternative
+2. UC-732: Gestion des restrictions d'écoute
+   * Déclencheur: L'utilisateur tente de relire l'audio
+   * Étapes:
+      * L'utilisateur vérifie le compteur d'écoutes (ex: "Écoutes : 1/3")
+      * L'utilisateur clique à nouveau sur lecture pour réécouter
+      * Le système incrémente le compteur d'écoutes
+   * Résultat attendu: Lecture limitée au nombre d'écoutes autorisées
+   * Alternatives & Exceptions:
+      * E1: Nombre maximum d'écoutes atteint - Bouton de lecture désactivé avec message explicatif
+3. UC-733: Navigation dans le contenu audio
+   * Déclencheur: L'utilisateur utilise les contrôles de navigation audio
+   * Étapes:
+      * L'utilisateur clique sur les boutons ⏮️ ou ⏭️ pour naviguer dans l'audio
+      * Le système déplace la position de lecture
+   * Résultat attendu: Repositionnement dans le contenu audio
+   * Alternatives & Exceptions:
+      * E1: Navigation impossible dans certains types d'audio - Boutons désactivés
+4. UC-734: Saisie et soumission de la réponse
+   * Déclencheur: L'utilisateur a écouté l'audio
+   * Étapes:
+      * L'utilisateur saisit sa réponse dans le champ dédié
+      * L'utilisateur valide sa réponse en cliquant sur le bouton "Valider ma réponse"
+   * Résultat attendu: Réponse enregistrée, statut du joueur mis à jour
+   * Alternatives & Exceptions:
+      * E1: Tentative de soumission sans avoir écouté l'audio - Avertissement suggérant d'écouter d'abord
+États et transitions:
+* État initial: Lecteur audio prêt, aucune lecture encore effectuée
+* États intermédiaires: Lecture en cours, pause, saisie de réponse
+* État final: Réponse soumise, contrôles audio désactivés
+* Transitions vers: Question suivante (après réponse de tous les joueurs ou temps écoulé)
+Validations et contraintes:
+* Limite du nombre d'écoutes (généralement 3 maximum)
+* Format audio optimisé pour un chargement rapide
+* Support du format d'indication "Titre - Artiste" pour les questions musicales
+* Chronomètre continue pendant l'écoute (facteur de difficulté)
+Éléments d'interface critiques:
+* Lecteur audio: Boutons de contrôle (lecture/pause, précédent, suivant)
+* Indicateur visuel: Animation pendant la lecture pour feedback
+* Compteur d'écoutes: Affichage clair des restrictions (x/3)
+* Format de réponse: Indication du format attendu dans le placeholder
+Phase de Questions - Timeline
+Description générale: Interface de jeu pour les questions de type chronologique où l'utilisateur doit positionner un marqueur sur une ligne temporelle.
+Acteurs: Tous les participants à la partie
+Préconditions: La partie a été lancée et une question de type timeline est présentée
+Scénarios principaux:
+1. UC-741: Positionnement sur la timeline
+   * Déclencheur: Une question de type timeline est affichée
+   * Étapes:
+      * L'utilisateur lit la question demandant de situer un événement dans le temps
+      * L'utilisateur repère la timeline avec ses graduations (années)
+      * L'utilisateur fait glisser le marqueur ou clique directement sur la position souhaitée
+      * La valeur correspondante s'affiche dans l'indicateur d'année
+   * Résultat attendu: Marqueur positionné, année correspondante affichée
+   * Alternatives & Exceptions:
+      * A1: Positionnement hors des graduations - Snap à la graduation la plus proche
+2. UC-742: Ajustement précis de la position
+   * Déclencheur: L'utilisateur souhaite affiner sa réponse
+   * Étapes:
+      * L'utilisateur observe l'année actuellement affichée
+      * L'utilisateur déplace légèrement le marqueur pour atteindre l'année exacte
+      * L'indicateur d'année se met à jour en temps réel
+   * Résultat attendu: Positionnement précis à l'année près
+   * Alternatives & Exceptions:
+      * A1: Interface tactile - Ajustement moins précis mais fonctionnel
+3. UC-743: Validation de la position
+   * Déclencheur: L'utilisateur est satisfait de son positionnement
+   * Étapes:
+      * L'utilisateur vérifie l'année affichée dans l'indicateur
+      * L'utilisateur clique sur "Valider ma réponse" pour confirmer sa sélection
+   * Résultat attendu: Position chronologique enregistrée, statut du joueur mis à jour
+   * Alternatives & Exceptions:
+      * E1: Temps écoulé avant validation - La dernière position du marqueur est enregistrée
+      * E2: Aucun mouvement du marqueur - Position par défaut enregistrée (généralement au milieu)
+États et transitions:
+* État initial: Marqueur à la position par défaut (milieu ou début de timeline)
+* États intermédiaires: Déplacement du marqueur, mise à jour dynamique de l'indicateur d'année
+* État final: Position validée, timeline en lecture seule
+* Transitions vers: Question suivante (après réponse de tous les joueurs ou temps écoulé)
+Validations et contraintes:
+* Plage chronologique adaptée à la question (ex: 1915-1923 pour le Traité de Versailles)
+* Précision à l'année près (ou au mois/jour pour événements plus précis)
+* Contrôle tactile et souris supportés
+* Feedback visuel lors du déplacement
+Éléments d'interface critiques:
+* Track de timeline: Barre horizontale avec graduations pour les années
+* Marqueur: Élément interactif à déplacer, visuellement distinct
+* Indicateur d'année: Affichage clair et dynamique de l'année sélectionnée
+* Graduations: Points de repère chronologiques avec étiquettes d'années
+* Bouton de validation: Style cohérent avec les autres types de questions
+Phase de Questions - Drag-n-Drop
+Description générale: Interface permettant aux joueurs de classer ou ordonner des éléments en les faisant glisser vers des zones de dépôt.
+Acteurs: Tous les participants à la partie
+Préconditions: La partie a été lancée et une question de type drag-n-drop est présentée
+Scénarios principaux:
+1. UC-751: Placement des éléments par glisser-déposer
+   * Déclencheur: Une question de type drag-n-drop est affichée
+   * Étapes:
+      * L'utilisateur lit la question demandant d'ordonner ou classer des éléments
+      * L'utilisateur examine les éléments disponibles dans la zone source
+      * L'utilisateur glisse un élément vers une zone de dépôt cible
+      * Le système place visuellement l'élément dans la zone cible
+   * Résultat attendu: Élément correctement placé dans la zone de dépôt
+   * Alternatives & Exceptions:
+      * A1: Le glisser-déposer n'est pas supporté/fonctionne mal - Option pour cliquer sur un élément puis sur une zone
+2. UC-752: Réorganisation des éléments
+   * Déclencheur: L'utilisateur souhaite modifier son classement
+   * Étapes:
+      * L'utilisateur sélectionne un élément déjà placé
+      * L'utilisateur le glisse vers une autre zone de dépôt
+      * Le système déplace l'élément et réorganise les autres si nécessaire
+   * Résultat attendu: Ordre modifié selon la nouvelle disposition
+   * Alternatives & Exceptions:
+      * A1: Plusieurs éléments affectés - Tous les éléments concernés se réorganisent automatiquement
+3. UC-753: Validation de l'ordonnancement
+   * Déclencheur: L'utilisateur a placé tous les éléments
+   * Étapes:
+      * L'utilisateur vérifie l'ordre final des éléments
+      * L'utilisateur clique sur le bouton "Valider ma réponse"
+   * Résultat attendu: Ordre final enregistré, statut du joueur mis à jour
+   * Alternatives & Exceptions:
+      * E1: Toutes les zones ne sont pas remplies - Message d'alerte suggérant de compléter l'ordonnancement
+      * E2: Temps écoulé avant validation - L'ordre actuel est automatiquement soumis
+États et transitions:
+* État initial: Éléments disponibles dans la zone source, zones de dépôt vides (ou partiellement remplies selon design)
+* États intermédiaires: Différentes configurations des éléments dans les zones de dépôt
+* État final: Toutes les zones remplies et réponse validée
+* Transitions vers: Question suivante (après réponse de tous les joueurs ou temps écoulé)
+Validations et contraintes:
+* Toutes les zones doivent être remplies pour la validation
+* Un élément ne peut être placé que dans une seule zone à la fois
+* Temps plus long accordé que pour les autres types de questions (généralement 25 secondes)
+* Support des interactions tactiles et souris
+Éléments d'interface critiques:
+* Éléments glissables: Visuellement distincts avec affordance pour le glisser-déposer
+* Zones de dépôt: Clairement délimitées avec étiquettes de position (1er, 2ème, etc.)
+* Indicateurs visuels: Feedback lors du survol d'une zone de dépôt
+* Bouton de validation: Indique clairement la finalisation de l'ordonnancement
+Phase de Résultats (Podium)
+Description générale: Interface finale affichant le classement des joueurs, avec mise en avant du podium et animations festives.
+Acteurs: Tous les participants à la partie
+Préconditions: Toutes les questions ont été posées et corrigées
+Scénarios principaux:
+1. UC-801: Visualisation des résultats finaux
+   * Déclencheur: La phase de correction est terminée
+   * Étapes:
+      1. Le système affiche le podium avec les trois premiers joueurs
+      2. Les animations et effets visuels (confettis, etc.) sont déclenchés
+      3. Le classement complet est affiché en dessous du podium
+      4. L'utilisateur peut voir son propre classement et celui des autres joueurs
+   * Résultat attendu: Affichage complet et interactif des résultats
+   * Alternatives & Exceptions:
+      1. A1: Moins de 3 joueurs - Podium adapté au nombre de participants
+      2. A2: Égalité entre joueurs - Affichage approprié indiquant l'égalité
+2. UC-802: Consultation des détails des scores
+   * Déclencheur: L'utilisateur clique sur "Voir le détail"
+   * Étapes:
+      1. L'utilisateur clique sur le bouton "Voir le détail"
+      2. Le système affiche une vue détaillée avec les statistiques par joueur
+      3. L'utilisateur peut voir le nombre de questions correctes et le temps moyen de réponse de chaque joueur
+   * Résultat attendu: Affichage des statistiques détaillées de la partie
+   * Alternatives & Exceptions:
+      1. E1: Erreur de chargement des détails - Message d'erreur avec option de réessayer
+3. UC-803: Lancement d'une nouvelle partie
+   * Déclencheur: L'utilisateur clique sur "Nouvelle partie"
+   * Étapes:
+      1. L'utilisateur clique sur le bouton "Nouvelle partie"
+      2. Le système demande confirmation si le créateur est différent
+      3. Le système redirige vers l'interface de création de partie
+   * Résultat attendu: Début du processus de création d'une nouvelle partie
+   * Alternatives & Exceptions:
+      1. A1: L'utilisateur n'est pas le créateur de la partie précédente - Demande de confirmation
+4. UC-804: Retour à l'accueil
+   * Déclencheur: L'utilisateur quitte l'écran de résultats
+   * Étapes:
+      1. L'utilisateur clique sur le logo ou sur un bouton de retour à l'accueil (implicite)
+      2. Le système confirme l'action si nécessaire
+      3. Le système redirige vers la page d'accueil connecté
+   * Résultat attendu: Retour à la page d'accueil connecté
+   * Alternatives & Exceptions: Aucune
+États et transitions:
+* État unique: Affichage des résultats (avec possibilité d'afficher les détails)
+* Transitions vers: Interface de création de partie (nouvelle partie), Page d'accueil connecté (retour)
+Validations et contraintes:
+* Affichage adapté au nombre de participants
+* Mise en évidence appropriée du podium et du gagnant
+* Animations non intrusives pour la lisibilité des résultats
+Éléments d'interface critiques:
+* Podium: Représentation visuelle des trois premiers avec médailles/trophées
+* Classement: Liste complète des joueurs avec leurs scores
+* Effets visuels: Confettis, animations et badge pour le gagnant
+* Boutons d'action: "Nouvelle partie" (principal) et "Voir le détail" (secondaire)
+Soumission de Questions
+Description générale: Interface permettant aux utilisateurs de créer et soumettre de nouvelles questions pour enrichir la base de données du jeu.
+Acteurs: Utilisateurs connectés avec rôle standard minimum
+Préconditions: L'utilisateur est authentifié
+Scénarios principaux:
+1. UC-901: Sélection du type de question
+   * Déclencheur: L'utilisateur commence la création d'une question
+   * Étapes:
+      * L'utilisateur arrive sur la page de soumission
+      * L'utilisateur sélectionne un type de question parmi les options disponibles (QCM, Texte, Timeline, Drag-n-Drop)
+      * L'interface s'adapte pour afficher les champs spécifiques au type sélectionné
+   * Résultat attendu: Formulaire adapté au type de question choisi
+   * Alternatives & Exceptions: Aucune
+2. UC-902: Saisie des informations principales
+   * Déclencheur: L'utilisateur remplit le formulaire
+   * Étapes:
+      * L'utilisateur saisit le texte de la question
+      * L'utilisateur sélectionne un thème dans la liste déroulante
+      * L'utilisateur ajoute optionnellement un média (image ou son)
+   * Résultat attendu: Informations de base enregistrées
+   * Alternatives & Exceptions:
+      * E1: Thème "Autre" sélectionné - Demande de spécification supplémentaire
+      * E2: Échec du téléversement du média - Message d'erreur avec option de réessayer
+3. UC-903: Configuration des paramètres spécifiques au type
+   * Déclencheur: L'utilisateur est à l'étape des paramètres spécifiques
+   * Étapes:
+      * Pour un QCM: L'utilisateur ajoute les options et indique la/les réponse(s) correcte(s)
+      * Pour une question textuelle: L'utilisateur saisit la réponse correcte et d'éventuelles alternatives
+      * Pour une timeline: L'utilisateur définit la date/année correcte et la plage de la timeline
+      * Pour un drag-n-drop: L'utilisateur ajoute et ordonne les éléments
+   * Résultat attendu: Paramètres spécifiques configurés selon le type de question
+   * Alternatives & Exceptions:
+      * E1: Paramètres incomplets - Mise en évidence des champs manquants
+4. UC-904: Définition de la difficulté et du temps de réponse
+   * Déclencheur: L'utilisateur configure les paramètres de difficulté
+   * Étapes:
+      * L'utilisateur sélectionne un niveau de difficulté (1-5)
+      * L'utilisateur ajuste le temps de réponse accordé (10-20 secondes)
+   * Résultat attendu: Paramètres de difficulté et de temps enregistrés
+   * Alternatives & Exceptions:
+      * A1: Sélection d'une difficulté élevée - Recommandation automatique d'un temps plus long
+5. UC-905: Prévisualisation de la question
+   * Déclencheur: L'utilisateur souhaite prévisualiser sa question
+   * Étapes:
+      * L'utilisateur clique sur un bouton de prévisualisation
+      * Le système affiche la question telle qu'elle apparaîtra aux joueurs
+      * L'utilisateur peut tester l'interaction selon le type de question
+   * Résultat attendu: Affichage réaliste de la question comme dans une partie
+   * Alternatives & Exceptions:
+      * E1: Éléments manquants - Indication des informations requises pour compléter la prévisualisation
+6. UC-906: Soumission pour validation
+   * Déclencheur: L'utilisateur finalise sa question
+   * Étapes:
+      * L'utilisateur vérifie les informations saisies
+      * L'utilisateur clique sur "Soumettre la question"
+      * Le système enregistre la question et la place en attente de validation
+   * Résultat attendu: Question soumise avec confirmation visuelle
+   * Alternatives & Exceptions:
+      * E1: Validation échouée - Message d'erreur avec détails sur les problèmes
+      * E2: Problème de connexion - Option de sauvegarde temporaire
+7. UC-907: Annulation de la création
+   * Déclencheur: L'utilisateur abandonne la création
+   * Étapes:
+      * L'utilisateur clique sur "Annuler" ou "Retour à l'accueil"
+      * Le système demande confirmation si des données ont été saisies
+   * Résultat attendu: Retour à la page d'accueil connecté sans enregistrement
+   * Alternatives & Exceptions:
+      * A1: L'utilisateur reprend la création - Retour au formulaire sans perte de données
+États et transitions:
+* État initial: Sélection du type de question
+* États intermédiaires: Différentes sections du formulaire selon le type
+* États de validation: Vérification des champs obligatoires, prévisualisation
+* État final: Confirmation de soumission ou annulation
+* Transitions vers: Page d'accueil connecté, Confirmation de soumission
+Validations et contraintes:
+* Texte de question obligatoire et d'une longueur minimale
+* Thème obligatoire parmi les options disponibles
+* Réponse(s) correcte(s) obligatoire(s) selon le type
+* Taille et format des médias limités (JPEG, PNG, MP3, max 5 Mo)
+* Nombre minimum d'options pour les QCM (au moins 2)
+* Plage de valeurs pour la difficulté (1-5) et le temps (10-20s)
+Éléments d'interface critiques:
+* Sélecteur de type: Options visuelles pour choisir le format de question
+* Formulaire adaptatif: Change selon le type de question sélectionné
+* Téléversement de média: Interface drag-n-drop et sélection de fichier
+* Prévisualisation: Aperçu réaliste de la question finale
+* Boutons d'action: "Soumettre" (principal) et "Annuler" (secondaire)
+Interface Admin - Gestion des Utilisateurs
+Description générale: Interface d'administration permettant au super-administrateur de gérer les utilisateurs et leurs rôles dans l'application.
+Acteurs: Utilisateurs avec rôle Super Admin
+Préconditions: L'utilisateur est authentifié avec un rôle Super Admin
+Scénarios principaux:
+1. UC-1101: Consultation de la liste des utilisateurs
+   * Déclencheur: L'administrateur accède à l'onglet "Gestion des utilisateurs"
+   * Étapes:
+      * L'administrateur clique sur l'onglet "Gestion des utilisateurs"
+      * Le système affiche la liste des utilisateurs avec leurs informations et rôles
+   * Résultat attendu: Affichage de tous les utilisateurs du système
+   * Alternatives & Exceptions: Aucune
+2. UC-1102: Recherche d'utilisateurs
+   * Déclencheur: L'administrateur utilise la barre de recherche
+   * Étapes:
+      * L'administrateur saisit un terme de recherche dans le champ dédié
+      * Le système filtre la liste en temps réel pendant la saisie
+      * Le système affiche les utilisateurs correspondant aux critères
+   * Résultat attendu: Liste d'utilisateurs filtrée selon les critères
+   * Alternatives & Exceptions:
+      * E1: Aucun utilisateur trouvé - Message indiquant l'absence de résultats
+3. UC-1103: Filtrage par rôle
+   * Déclencheur: L'administrateur sélectionne un rôle dans le filtre
+   * Étapes:
+      * L'administrateur clique sur le sélecteur de rôle
+      * L'administrateur choisit un rôle spécifique (Super Admin, Validateur, Utilisateur)
+      * Le système affiche uniquement les utilisateurs ayant ce rôle
+   * Résultat attendu: Liste filtrée par le rôle sélectionné
+   * Alternatives & Exceptions:
+      * A1: Sélection "Tous" - Affichage de tous les utilisateurs, sans filtre de rôle
+4. UC-1104: Modification d'un utilisateur
+   * Déclencheur: L'administrateur clique sur l'icône d'édition d'un utilisateur
+   * Étapes:
+      * L'administrateur clique sur le bouton d'édition (✏️)
+      * Le système affiche un formulaire avec les informations de l'utilisateur
+      * L'administrateur modifie les champs souhaités (y compris le rôle)
+      * L'administrateur valide les modifications
+   * Résultat attendu: Informations de l'utilisateur mises à jour
+   * Alternatives & Exceptions:
+      * E1: Email déjà utilisé - Message d'erreur spécifique
+      * E2: Tentative de supprimer le dernier Super Admin - Blocage avec message d'explication
+5. UC-1105: Suppression d'un utilisateur
+   * Déclencheur: L'administrateur clique sur l'icône de suppression
+   * Étapes:
+      * L'administrateur clique sur le bouton de suppression (🗑️)
+      * Le système demande confirmation
+      * L'administrateur confirme la suppression
+   * Résultat attendu: Utilisateur supprimé de la liste et désactivé dans le système
+   * Alternatives & Exceptions:
+      * E1: Utilisateur est le dernier Super Admin - Blocage avec message d'explication
+      * E2: Utilisateur a des questions ou parties en cours - Avertissement avec options
+États et transitions:
+* État initial: Liste complète des utilisateurs
+* États intermédiaires: Liste filtrée, formulaire d'édition
+* État final: Liste mise à jour des utilisateurs
+* Transitions vers: Interface de gestion des thèmes (via onglet), Page d'accueil (via retour)
+Validations et contraintes:
+* Au moins un Super Admin doit toujours exister dans le système
+* Modification de son propre rôle par un Super Admin est restreinte
+* Email unique pour chaque utilisateur
+* Impossibilité de supprimer un utilisateur ayant des parties actives (option de désactivation plutôt)
+Éléments d'interface critiques:
+* Liste des utilisateurs: Affichage clair avec informations pertinentes
+* Badges de rôle: Distinction visuelle des différents rôles
+* Filtres et recherche: Outils pour naviguer dans la liste d'utilisateurs
+* Indicateurs de statut: Actif/Inactif pour chaque utilisateur
+* Boutons d'action: Édition, suppression
+Interface Validateur
+Description générale: Interface dédiée aux utilisateurs ayant le rôle de validateur, permettant d'examiner, de modifier et de valider ou refuser les questions soumises par les utilisateurs.
+Acteurs: Utilisateurs avec rôle Validateur ou Super Admin
+Préconditions: L'utilisateur est authentifié avec un rôle Validateur ou Super Admin
+Scénarios principaux:
+1. UC-1201: Consultation du tableau de bord
+   * Déclencheur: Le validateur accède à l'interface de validation
+   * Étapes:
+      1. Le validateur arrive sur la page d'interface validateur
+      2. Le système affiche les statistiques principales (questions en attente, validées)
+      3. Le système affiche la liste des questions en attente de validation
+   * Résultat attendu: Vue d'ensemble de l'activité de validation
+   * Alternatives & Exceptions:
+      1. A1: Aucune question en attente - Message explicatif et statistiques uniquement
+2. UC-1202: Examen d'une question soumise
+   * Déclencheur: Le validateur clique sur une question dans la liste
+   * Étapes:
+      1. Le validateur clique sur une question pour l'ouvrir
+      2. La question s'étend pour afficher tous les détails
+      3. Le validateur examine la question, les réponses et les informations sur l'auteur
+   * Résultat attendu: Affichage détaillé de la question sélectionnée
+   * Alternatives & Exceptions: Aucune
+3. UC-1203: Validation d'une question
+   * Déclencheur: Le validateur approuve une question
+   * Étapes:
+      1. Le validateur examine la question
+      2. Le validateur ajoute éventuellement un commentaire dans le champ dédié
+      3. Le validateur clique sur le bouton "Valider"
+   * Résultat attendu: Question marquée comme validée et ajoutée à la base de questions active
+   * Alternatives & Exceptions:
+      1. A1: Commentaire inclus - Notification envoyée à l'auteur avec le commentaire
+4. UC-1204: Refus d'une question
+   * Déclencheur: Le validateur refuse une question
+   * Étapes:
+      1. Le validateur examine la question
+      2. Le validateur saisit un commentaire expliquant la raison du refus
+      3. Le validateur clique sur le bouton "Refuser"
+   * Résultat attendu: Question marquée comme refusée, notification envoyée à l'auteur
+   * Alternatives & Exceptions:
+      1. E1: Refus sans commentaire - Demande de justification obligatoire
+5. UC-1205: Modification d'une question
+   * Déclencheur: Le validateur souhaite modifier une question avant validation
+   * Étapes:
+      1. Le validateur examine la question
+      2. Le validateur clique sur le bouton "Modifier"
+      3. Le système affiche un formulaire d'édition pré-rempli
+      4. Le validateur apporte les modifications nécessaires
+      5. Le validateur enregistre les modifications et décide de valider ou refuser
+   * Résultat attendu: Question modifiée puis validée ou refusée
+   * Alternatives & Exceptions:
+      1. A1: Commentaire explicatif des modifications - Notification à l'auteur avec les changements effectués
+6. UC-1206: Navigation entre les questions
+   * Déclencheur: Le validateur utilise la pagination
+   * Étapes:
+      1. Le validateur clique sur un numéro de page ou sur les boutons de navigation
+      2. Le système affiche la page correspondante de questions en attente
+   * Résultat attendu: Affichage de la page sélectionnée de questions
+   * Alternatives & Exceptions: Aucune
+États et transitions:
+* État initial: Liste des questions en attente avec statistiques
+* États intermédiaires: Question étendue pour examen, formulaire d'édition
+* États finaux: Question validée ou refusée, disparaissant de la liste
+* Transitions vers: Page d'accueil (via retour)
+Validations et contraintes:
+* Commentaire obligatoire pour le refus d'une question
+* Possibilité de modifier tous les aspects d'une question avant validation
+* Assignation de thème obligatoire pour les questions avec thème "Autre"
+* Implémentation des différentes règles de validation selon le type de question
+Éléments d'interface critiques:
+* Cartes de questions: Affichage compact avec expansion pour détails
+* Statistiques: Résumé visuel de l'activité de validation
+* Champ de commentaire: Espace pour fournir des retours à l'auteur
+* Boutons d'action: "Modifier", "Refuser", "Valider"
+* Pagination: Navigation entre les pages de questions en attente
+Interface Admin - Gestion des Thèmes
+Description générale: Interface d'administration permettant au super-administrateur de gérer les thèmes de questions disponibles dans l'application.
+Acteurs: Utilisateurs avec rôle Super Admin
+Préconditions: L'utilisateur est authentifié avec un rôle Super Admin
+Scénarios principaux:
+1. UC-1001: Consultation de la liste des thèmes
+   * Déclencheur: L'administrateur accède à l'interface admin
+   * Étapes:
+      * L'administrateur sélectionne l'onglet "Gestion des thèmes"
+      * Le système affiche une grille de cartes pour chaque thème existant
+      * L'administrateur voit pour chaque thème: nom, icône, nombre de questions, barre de progression, statut (Actif/Inactif)
+      * Certains thèmes peuvent afficher un indicateur supplémentaire "Partie en cours"
+   * Résultat attendu: Affichage de tous les thèmes sous forme de grille de cartes
+   * Alternatives & Exceptions: Aucune
+2. UC-1002: Création d'un nouveau thème
+   * Déclencheur: L'administrateur clique sur "Créer un nouveau thème"
+   * Étapes:
+      * L'administrateur clique sur la carte spéciale "Créer un nouveau thème" (fond transparent, bordure en pointillés, icône "+")
+      * Le système affiche un formulaire de création
+      * L'administrateur saisit le nom du thème et sélectionne une icône
+      * L'administrateur valide la création
+   * Résultat attendu: Nouveau thème créé et ajouté à la grille de cartes
+   * Alternatives & Exceptions:
+      * E1: Thème avec un nom similaire - Avertissement et demande de confirmation
+      * E2: Problème de création - Message d'erreur avec détails
+3. UC-1003: Modification du nom d'un thème
+   * Déclencheur: L'administrateur clique sur l'icône crayon à côté du nom du thème
+   * Étapes:
+      * L'administrateur clique sur l'icône d'édition (✏️) placée à côté du nom du thème
+      * Le champ texte du nom devient éditable directement dans la carte (sans formulaire séparé)
+      * L'administrateur modifie le nom
+      * L'administrateur valide la modification en cliquant ailleurs ou en appuyant sur Entrée
+   * Résultat attendu: Nom du thème mis à jour directement dans la carte
+   * Alternatives & Exceptions:
+      * E1: Problème de mise à jour - Message d'erreur avec option de réessayer
+      * E2: Nom identique à un thème existant - Message d'erreur
+4. UC-1004: Suppression d'un thème
+   * Déclencheur: L'administrateur clique sur l'icône de suppression d'un thème
+   * Étapes:
+      * L'administrateur clique sur l'icône de suppression (🗑️) du thème
+      * Le système demande confirmation
+      * L'administrateur confirme la suppression
+   * Résultat attendu: Thème supprimé de la grille et de la base de données
+   * Alternatives & Exceptions:
+      * A1: Thème avec badge "Partie en cours" - Demande de confirmation avec avertissement spécifique
+      * A2: Thème contenant des questions - Demande de confirmation avec information sur le nombre de questions affectées
+5. UC-1005: Activation/Désactivation d'un thème
+   * Déclencheur: L'administrateur clique sur le badge de statut d'un thème
+   * Étapes:
+      * L'administrateur clique sur le badge "Actif" (vert) ou "Inactif" (rouge)
+      * Le système change immédiatement le statut sans demande de confirmation
+      * Le badge change de couleur et de texte pour refléter le nouveau statut
+   * Résultat attendu: Statut du thème mis à jour immédiatement, badge changé
+   * Alternatives & Exceptions:
+      * A1: Thème avec badge "Partie en cours" - Le changement n'affecte pas les parties en cours
+États et transitions:
+* État initial: Grille de cartes des thèmes existants
+* États intermédiaires: Édition du nom directement dans la carte, formulaire pour nouveau thème
+* État final: Grille mise à jour des thèmes
+* Transitions vers: Interface de gestion utilisateurs (via onglet), Page d'accueil (via retour)
+Validations et contraintes:
+* Nom de thème unique et obligatoire
+* Icône obligatoire (sélection limitée aux icônes disponibles)
+* Minimum de 20 questions requises pour qu'un thème soit utilisable dans les parties (visualisé par la barre de progression)
+* Possibilité de supprimer un thème même s'il est utilisé dans des parties en cours
+Éléments d'interface critiques:
+* Grille de cartes de thèmes: 3-4 cartes par ligne (responsive), hauteur fixe, fond semi-transparent
+* Badges de statut: Indicateurs visuels cliquables ("Actif" en vert ou "Inactif" en rouge)
+* Badge "Partie en cours": Badge d'avertissement jaune qui apparaît sous le badge de statut
+* Barre de progression: Visualisation du nombre de questions par rapport au minimum requis (20)
+* Icône d'édition du nom: Petit crayon (✏️) placé à côté du nom du thème pour édition directe
+* Carte "Créer un nouveau thème": Design distinct avec fond plus transparent, bordure en pointillés et icône "+" centrale
