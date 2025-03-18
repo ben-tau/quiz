@@ -3,30 +3,59 @@ flowchart TD
     classDef development fill:#3B82F6,stroke:#60A5FA,color:white
     classDef design fill:#EC4899,stroke:#F472B6,color:white
     classDef documentation fill:#10B981,stroke:#34D399,color:white
-    classDef active stroke-width:4px
+    classDef testing fill:#F59E0B,stroke:#FBBF24,color:white
+    classDef human fill:#6D28D9,stroke:#8B5CF6,color:white,stroke-width:3px
+    classDef storage fill:#475569,stroke:#64748B,color:white,stroke-dasharray: 5 5
+    classDef optional stroke-dasharray: 5 5
     
-    Coord[Coordinateur] --> ChefP[Chef de Projet]
-    Coord --> ArchT[Architecte Tech]
-    Coord --> TSlice[TaskSlicer]
-    Coord --> UXD[UX/UI Designer]
-    Coord --> DocM[DocManager]
+    Human[Super-Coordinateur<br>Humain] -->|Détecte problème| Coord
     
-    TSlice --> DevF[Développeur Frontend]
-    TSlice --> TestA[Test Agent]
+    %% Référentiel central de documentation
+    DocRepo[(Référentiel<br>Central<br>Documentation)]
     
-    DevF --> DocM
-    TestA --> DocM
+    %% L'agent coordinateur est au centre du système
+    Coord[Coordinateur] -->|Informe| ChefP[Chef de Projet]
+    ChefP -->|Informe| ArchT[Architecte Tech]
+    ArchT -->|Informe| TSlice[TaskSlicer]
     
-    ArchT --> DocM
-    UXD --> DocM
-    ChefP --> DocM
+    %% Intégration optionnelle d'UX/UI dans la boucle principale
+    ArchT -.->|Besoin design<br>spécifique| UXD[UX/UI Designer]
+    UXD -.->|Fournit design| TSlice
     
-    TSlice -.-> MR{Synchronisation}
-    DocM -.-> MR
-    DevF -.-> MR
+    TSlice -->|Transmet tâches| Dev[Développeur]
     
+    %% Flux de test
+    Dev -->|Livrable<br>testable| TestA[Test Agent]
+    TestA -->|Scénarios<br>de test| Human
+    Human -->|Exécute tests<br>manuels| Dev
+    
+    %% Agents optionnels - potentiel futur 
+    Human -.->|Gestion docs<br>si volumétrie élevée| DocM[DocManager<br>Claude IA]
+    
+    %% Tous les agents interagissent avec le référentiel
+    Coord <-->|Consulte/Met à jour| DocRepo
+    ChefP <-->|Consulte/Met à jour| DocRepo
+    ArchT <-->|Consulte/Met à jour| DocRepo
+    TSlice <-->|Consulte/Met à jour| DocRepo
+    Dev <-->|Consulte/Met à jour| DocRepo
+    UXD <-->|Consulte/Met à jour| DocRepo
+    TestA <-->|Consulte/Met à jour| DocRepo
+    DocRepo <-->|Point central<br>d'information| Human
+    
+    %% Le Human boucle vers le Coordinateur pour compléter le cycle
+    Human -->|Complète<br>le cycle| Coord
+    
+    %% Sous-graphe pour montrer la boucle itérative principale
+    subgraph "Boucle Itérative de Travail"
+        Coord --> ChefP --> ArchT --> TSlice --> Dev --> TestA --> Human --> Coord
+    end
+    
+    %% Classification des agents    
     class Coord,ChefP management
-    class TSlice,DevF,TestA development
+    class TSlice,Dev development
     class UXD design
     class DocM documentation
-    class DocM,TSlice,DevF active
+    class TestA testing
+    class Human human
+    class DocRepo storage
+    class UXD,DocM optional
